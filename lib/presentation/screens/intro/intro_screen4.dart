@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart'; // IMPORT LOGIN SCREEN UNTUK TUJUAN AKHIR
 
 class IntroScreen4 extends StatelessWidget {
   const IntroScreen4({super.key});
@@ -107,13 +106,7 @@ class IntroScreen4 extends StatelessWidget {
               top: 816,
               child: GestureDetector(
                 onTap: () {
-                  // Menggunakan pushReplacement agar tidak bisa "back" lagi ke intro
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
+                  debugPrint('Tombol login ditekan');
                 },
                 child: Container(
                   height: 62,

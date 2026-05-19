@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import '../auth/signup_screen.dart'; // s
-import '../auth/login_screen.dart'; // Import LoginScreen untuk navigasi dari SplashScreen
+import '../auth/signup_screen.dart'; 
+import '../auth/login_screen.dart'; 
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Menggunakan Scaffold agar layar memiliki struktur dasar aplikasi
     return Scaffold(
       body: Container(
-        width: double.infinity, // Agar lebar mengikuti layar HP
-        height: double.infinity, // Agar tinggi mengikuti layar HP
+        width: double.infinity, 
+        height: double.infinity, 
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(color: Colors.black),
         child: Stack(
@@ -51,7 +50,7 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xFF960606),
                     fontSize: 17,
-                    fontFamily: 'Inter', // Diganti ke Inter agar aman jika font Ubuntu belum diinstall
+                    fontFamily: 'Inter', 
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -76,6 +75,7 @@ class SplashScreen extends StatelessWidget {
             // Tombol: Start Your Journey
             Positioned(
               left: 27,
+              right: 27, 
               top: 721,
               child: GestureDetector(
                 onTap: () {
@@ -85,7 +85,6 @@ class SplashScreen extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  width: 358,
                   height: 62,
                   decoration: ShapeDecoration(
                     gradient: const LinearGradient(
@@ -113,20 +112,18 @@ class SplashScreen extends StatelessWidget {
             ),
 
             // Tombol: I Already Have an Account
-            // Cari widget Positioned untuk tombol "I Already Have an Account" (top: 797)
             Positioned(
               left: 27,
+              right: 27, 
               top: 797,
               child: GestureDetector(
                 onTap: () {
-                  // LOGIKA PINDAH KE LOGIN
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const LoginScreen()),
                   );
                 },
                 child: Container(
-                  width: 358,
                   height: 62,
                   decoration: ShapeDecoration(
                     color: Colors.white,
@@ -153,21 +150,17 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
 
-            // Bagian Logo (Placeholder)
+            // Bagian Logo Utama (Sekarang sudah aman karena package telah di-import)
             Positioned(
               left: 121,
               top: 210,
-              child: Container(
-                width: 169,
-                height: 226,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage("https://placehold.co/169x226"),
-                    fit: BoxFit.fill,
-                  ),
-                ),
+              child: Image.asset(
+                'assets/images/logoutama.png', // Jalur file PNG Anda
+                width: 169,                    // Menentukan lebar langsung
+                height: 226,                   // Menentukan tinggi langsung
+                fit: BoxFit.contain,           // Menjaga proporsi gambar tetap aman
               ),
-            ),
+            ),       
           ],
         ),
       ),

@@ -134,8 +134,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       end: Alignment(0.50, 1.00),
                       colors: [Colors.white, Color(0xFFFFEEEC)],
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(47),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(47),
+                        topRight: Radius.circular(47),
+                      ),
                     ),
                     shadows: const [
                       BoxShadow(
