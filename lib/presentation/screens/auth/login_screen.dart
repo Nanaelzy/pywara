@@ -134,25 +134,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 // 3. Header & Logo
-                const Positioned(
+                Positioned(
                   left: 0,
                   right: 0,
-                  top: 189,
+                  top: 15, // Menurunkan sedikit agar tidak mentok ke atas layar
                   child: Column(
                     children: [
-                      Text(
-                        'Hello!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                      // --- TEMPAT LOGO PNG ANDA ---
+                      Image.asset(
+                        'assets/images/logoutama.png',
+                        width: 190,   // Ukurannya diperkecil agar pas dengan area header
+                        height: 190,
+                        fit: BoxFit.contain,
+                      ),
+                      Transform.translate(
+                        offset: const Offset(0, -5), // <-- Angka ini menarik teks ke atas sebesar 5 piksel
+                        child: const Text(
+                          'Hello!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      const SizedBox(height: 0),
+                      const Text(
                         "Let's explore together!",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 17),
+                        style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                     ],
                   ),
@@ -373,6 +383,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 2,
                 ),
               ),
+
+              prefixIcon: const Icon(
+                Icons.email_outlined,
+                color: Color.fromARGB(255, 0, 0, 0), // Warna merah tema PyWara
+                size: 22,
+              ),
+
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
@@ -438,10 +455,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 horizontal: 16,
                 vertical: 18,
               ),
+
+              prefixIcon: const Icon(
+                Icons.lock_outline,
+                color: Color.fromARGB(255, 0, 0, 0), // Warna merah tema PyWara
+                size: 22,
+              ),
+
               suffixIcon: IconButton(
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_off : Icons.visibility,
-                  color: const Color(0xFF960606),
+                  color: const Color.fromARGB(255, 0, 0, 0),
                 ),
                 onPressed: () {
                   setState(() {

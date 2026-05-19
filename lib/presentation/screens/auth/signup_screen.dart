@@ -209,42 +209,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               // 4. Header Text
-              const Positioned(
+              Positioned(
                 left: 0,
                 right: 0,
-                top: 189,
+                top: 15, // Menurunkan sedikit agar tidak mentok ke atas layar
                 child: Column(
                   children: [
-                    Text(
-                      'Hello!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
+                    // --- TEMPAT LOGO PNG ANDA ---
+                    Image.asset(
+                      'assets/images/logoutama.png',
+                      width: 190,   // Ukurannya diperkecil agar pas dengan area header
+                      height: 190,
+                      fit: BoxFit.contain,
+                    ),
+                    Transform.translate(
+                      offset: const Offset(0, -5), // <-- Angka -25 ini akan menarik teks ke atas sebesar 25 piksel
+                      child: const Text(
+                        'Hello!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 0),
+                    const Text(
                       "Let's explore together!",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 17),
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                   ],
                 ),
               ),
 
-              // 5. Input Fields
+              // 5. Input Fhields
               _buildInputField(
                 top: 415,
                 label: 'Email Address',
                 hint: 'your.email@gmail.com',
                 controller: _emailController,
+                icon: Icons.email_outlined, 
               ),
               _buildInputField(
                 top: 515,
                 label: 'Full Name',
                 hint: 'your name',
                 controller: _nameController,
+                icon: Icons.person_outline,
               ),
               _buildInputField(
                 top: 615,
@@ -252,6 +264,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hint: 'password',
                 isPassword: true, // Mengaktifkan mode password
                 controller: _passwordController,
+                icon: Icons.lock_outline,
               ),
 
               // 6. Tombol Create Account (Sign Up)
@@ -346,6 +359,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required String label,
     required String hint,
     required TextEditingController controller,
+    required IconData icon,
     bool isPassword = false,
   }) {
     return Positioned(
@@ -388,6 +402,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     horizontal: 16,
                     vertical: 14,
                   ),
+
+                  prefixIcon: Icon(
+                    icon,
+                    color: const Color.fromARGB(255, 0, 0, 0), // Warnanya disamakan dengan tema merah Anda
+                    size: 22,
+                  ),
+
                   // Menambahkan ikon mata jika isPassword bernilai true
                   suffixIcon: isPassword
                       ? IconButton(
@@ -395,7 +416,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             _obscurePassword
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: const Color(0xFF960606),
+                            color: const Color.fromARGB(255, 0, 0, 0),
                           ),
                           onPressed: () {
                             setState(() {
