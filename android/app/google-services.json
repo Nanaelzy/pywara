@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1084029523403",
+    "project_id": "pywara-99e8f",
+    "storage_bucket": "pywara-99e8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084029523403:android:7b696bb91bffec1750524e",
+        "android_client_info": {
+          "package_name": "com.example.pywara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3bx4-O-yx3x0RYoRQD96DPK0WcCXTtps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
