@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../home/home_screen.dart';
 
 class IntroScreen4 extends StatelessWidget {
   const IntroScreen4({super.key});
@@ -106,7 +107,10 @@ class IntroScreen4 extends StatelessWidget {
               top: 816,
               child: GestureDetector(
                 onTap: () {
-                  debugPrint('Tombol login ditekan');
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
                 },
                 child: Container(
                   height: 62,

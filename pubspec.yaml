@@ -64,6 +64,7 @@ flutter:
     - assets/images/email.png
     - assets/images/orang.png
     - assets/images/lock.png
+    - assets/images/pylogo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; 
-import 'presentation/screens/splash/splash_screen.dart';
+import 'package:pywara/presentation/screens/intro/intro_screen4.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'PyWara',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: IntroScreen4(),
     );
   }
 }
