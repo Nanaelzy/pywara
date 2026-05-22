@@ -1,30 +1,36 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
 import '../profile/statistics_screen.dart'; 
 import '../task/pages/multiple_choice_screen.dart';
+import 'package:flutter/gestures.dart';
 
-class FloatingWidget extends StatefulWidget {
+class HoverFloatingWidget extends StatefulWidget {
   final Widget child;
-  const FloatingWidget({super.key, required this.child});
+  final Future<void> Function()? onTap;
+
+  const HoverFloatingWidget({super.key, required this.child, this.onTap});
 
   @override
-  State<FloatingWidget> createState() => _FloatingWidgetState();
+  State<HoverFloatingWidget> createState() => _HoverFloatingWidgetState();
 }
 
-class _FloatingWidgetState extends State<FloatingWidget> with SingleTickerProviderStateMixin {
+class _HoverFloatingWidgetState extends State<HoverFloatingWidget> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  bool _isHovered = false;
+  bool _isClicked = false;
+
+  bool get _shouldFloat => _isHovered || _isClicked;
 
   @override
   void initState() {
     super.initState();
-    // Durasi naik-turun 1.5 detik
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
-    )..repeat(reverse: true); // Animasi bolak-balik (naik, lalu turun)
+    );
 
-    // Jarak mengambang (dari -6 pixel ke atas, sampai 6 pixel ke bawah)
     _animation = Tween<double>(begin: -6.0, end: 6.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
@@ -36,16 +42,69 @@ class _FloatingWidgetState extends State<FloatingWidget> with SingleTickerProvid
     super.dispose();
   }
 
+  void _updateAnimation() {
+    if (_shouldFloat) {
+      if (!_controller.isAnimating) {
+        _controller.repeat(reverse: true);
+      }
+    } else {
+      _controller.stop();
+      _controller.reset();
+    }
+  }
+
+  Future<void> _handleTap() async {
+    setState(() {
+      _isClicked = true;
+    });
+    _updateAnimation();
+
+    final Future<void>? callbackResult = widget.onTap?.call();
+    if (callbackResult != null) {
+      await callbackResult;
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _isClicked = false;
+    });
+    _updateAnimation();
+  }
+
+  void _handleEnter(PointerEnterEvent event) {
+    setState(() {
+      _isHovered = true;
+    });
+    _updateAnimation();
+  }
+
+  void _handleExit(PointerExitEvent event) {
+    setState(() {
+      _isHovered = false;
+    });
+    _updateAnimation();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Transform.translate(
-          offset: Offset(0, _animation.value), // Bergerak di sumbu Y
+    return MouseRegion(
+      onEnter: _handleEnter,
+      onExit: _handleExit,
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: _handleTap,
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            final offsetY = _shouldFloat ? _animation.value : 0.0;
+            return Transform.translate(
+              offset: Offset(0, offsetY),
+              child: child,
+            );
+          },
           child: widget.child,
-        );
-      },
+        ),
+      ),
     );
   }
 }
@@ -121,12 +180,11 @@ class HomeScreen extends StatelessWidget {
                         ),
                         
                         // Level Node - Unit 2
-                        _buildLevelNode(context: context, left: 249, top: 964),
-                        _buildLevelNode(context: context, left: 113, top: 1071),
+                        _buildLevelNode(context: context, left: 249, top: 999),
+                        _buildLevelNode(context: context, left: 100, top: 1071),
                         _buildLevelNode(context: context, left: 216, top: 1198),
-                        _buildLevelNode(context: context, left: 89, top: 1330),
-                        _buildLevelNode(context: context, left: 229, top: 1499),
-
+                        _buildLevelNode(context: context, left: 120, top: 1330),
+                        _buildLevelNode(context: context, left: 229, top: 1470),
                         // Teks Kunci / Status di Paling Bawah
                         Positioned(
                           left: 0,
@@ -392,20 +450,116 @@ class HomeScreen extends StatelessWidget {
     return Positioned(
       left: left,
       top: top,
-      child: GestureDetector(
-        onTap: () {
-          // Navigasi ke halaman Multiple Choice saat tombol task ditekan
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const TaskScreen(), // Ganti dengan nama class di multiple_choice_screen.dart jika berbeda (misal: MultipleChoiceScreen)
-            ),
+      child: SizedBox(
+        width: 71,
+        child: HoverFloatingWidget(
+          onTap: () async {
+          // Menampilkan Pop-Up dari bawah
+          await showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent, // Dibuat transparan agar radius lengkungmu terlihat
+            builder: (BuildContext context) {
+              return SizedBox(
+                width: 412,
+                height: 227,
+                child: Stack(
+                  children: [
+                    // Background Merah Gelap (belakang)
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      right: 0, // Ditambahkan right: 0 agar menyesuaikan lebar layar
+                      child: Container(
+                        height: 219,
+                        decoration: const ShapeDecoration(
+                          color: Color(0xFF8A1212),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Background Merah Terang (depan)
+                    Positioned(
+                      left: 0,
+                      top: 8,
+                      right: 0, 
+                      child: Container(
+                        height: 219,
+                        decoration: const ShapeDecoration(
+                          color: Color(0xFFD85959),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Judul Unit / Task
+                    const Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 46,
+                      child: Text(
+                        'python syntax',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFFFDFFFC),
+                          fontSize: 32,
+                          fontFamily: 'Ubuntu',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    // Tombol Start (Background Putih + Teks digabung)
+                    Positioned(
+                      left: 37,
+                      right: 37, // Menggunakan left & right agar posisinya seimbang di tengah
+                      top: 122,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context); // 1. Tutup pop-up dari bawah
+                          Navigator.push(          // 2. Pindah ke halaman Multiple Choice
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TaskScreen(), 
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 74,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFFFFFCFB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                          ),
+                          alignment: Alignment.center, // Memastikan teks ada tepat di tengah tombol
+                          child: const Text(
+                            'Start  +20 xp',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF956B0B),
+                              fontSize: 20,
+                              fontFamily: 'B612 Mono',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         },
-        child: SizedBox(
-          width: 71, // Pastikan lebar ini cukup untuk gambar ikon
-          // Jika label diisi, gunakan animasi mengambang. Jika tidak, diam saja.
-          child: label != null ? FloatingWidget(child: nodeContent) : nodeContent,
+          child: nodeContent,
         ),
       ),
     );
