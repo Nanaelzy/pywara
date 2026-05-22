@@ -16,15 +16,123 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _darkMode = false; // State tambahan untuk Preferences Dark Mode
 
   // Fungsi Log Out Firebase
-  Future<void> _logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    if (context.mounted) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-        (route) => false, // Bersihkan semua history screen sebelumnya
-      );
-    }
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Colors.white,
+          child: Container(
+            width: 330,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Tinggi dialog fleksibel mengikuti konten
+              children: [
+                // 1. Icon Keluar Resmi Flutter
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Color(0x33D54E00),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.logout_rounded,
+                    color: Color(0xFFD54E00),
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // 2. Judul Dialog
+                const Text(
+                  'Leaving So Soon?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFFD54E00),
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // 3. Deskripsi Teks
+                const Text(
+                  'Your progress and achievements are safely saved. You can pick up exactly where you left off as soon as you sign back in.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF960606),
+                    fontSize: 13,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // 4. Tombol: Yes, Log Out (Mengarah ke LoginScreen)
+                InkWell(
+                  onTap: () async {
+                    Navigator.pop(dialogContext); // Tutup dialog
+                    await FirebaseAuth.instance.signOut(); // Keluar sesi Firebase
+                    if (context.mounted) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        (route) => false, // Bersihkan riwayat navigasi
+                      );
+                    }
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: double.infinity,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD54E00),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Yes, Log Out',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                // 5. Tombol: Cancel
+                InkWell(
+                  onTap: () => Navigator.pop(dialogContext),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: double.infinity,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Color(0xFF5D5D5D),
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -226,7 +334,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               // ================= RED LOG OUT BUTTON =================
               InkWell(
-                onTap: () => _logout(context),
+                onTap: () => _showLogoutDialog(context),
                 borderRadius: BorderRadius.circular(16),
                 child: Container(
                   width: double.infinity,

@@ -8,14 +8,124 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   // 1. Fungsi Log out Firebase
-  Future<void> _logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    if (context.mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SplashScreen()),
-      );
-    }
+  // Fungsi untuk menampilkan Pop-up Konfirmasi Logout dari Figma kamu
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Colors.white,
+          child: Container(
+            width: 330, // Sedikit diperkecil agar pas dengan rasio layar HP umumnya
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Membuat tinggi dialog mengikuti isi kontennya (Proporsional)
+              children: [
+                // 1. Icon Keluar (Wrapper Lingkaran)
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Color(0x33D54E00), // Opacity warna oranye disesuaikan
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.logout_rounded,
+                    color: Color(0xFFD54E00),
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // 2. Judul Dialog
+                const Text(
+                  'Leaving So Soon?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFFD54E00),
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                // 3. Deskripsi / Isi Teks
+                const Text(
+                  'Your progress and achievements are safely saved. You can pick up exactly where you left off as soon as you sign back in.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF960606),
+                    fontSize: 13,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    height: 1.4, // Mengatur jarak antar baris teks agar rapi
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // 4. Tombol: Yes, Log Out
+                InkWell(
+                  onTap: () async {
+                    Navigator.pop(dialogContext);
+                    await FirebaseAuth.instance.signOut();
+                    if (context.mounted) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SplashScreen()),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: double.infinity, // Mengikuti lebar dialog secara proporsional
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD54E00),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Yes, Log Out',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                // 5. Tombol: Cancel
+                InkWell(
+                  onTap: () => Navigator.pop(dialogContext),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: double.infinity,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Color(0xFF5D5D5D),
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   // 2. Fungsi Dialog Konfirmasi Hapus Akun (Posisi Aman di Atas)
@@ -332,7 +442,7 @@ class ProfileScreen extends StatelessWidget {
                 iconColor: const Color(0xFFD54E00),
                 bgColor: const Color(0x22D54E00),
                 title: 'Logout',
-                onTap: () => _logout(context),
+                onTap: () => _showLogoutDialog(context), 
               ),
               const SizedBox(height: 12),
               _buildAccountTile(

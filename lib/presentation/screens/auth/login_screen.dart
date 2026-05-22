@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'signup_screen.dart'; // Import halaman tujuan
+import 'signup_screen.dart'; 
+import '../home/home_screen.dart'; // Import HomeScreen untuk navigasi setelah login berhasil
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -41,7 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
             backgroundColor: Colors.green,
           ),
         );
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
       }
     } on FirebaseAuthException catch (e) {
       String message = 'Terjadi kesalahan';

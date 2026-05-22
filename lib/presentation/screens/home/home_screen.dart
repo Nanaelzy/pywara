@@ -164,7 +164,15 @@ class HomeScreen extends StatelessWidget {
                       ),
                       IconButton(
                         icon: const Icon(Icons.bar_chart_rounded, color: Colors.white70, size: 28),
-                        onPressed: () {},
+                        onPressed: () {
+                          // TAMBAHKAN NAVIGASI DI SINI:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const StatisticsScreen(),
+                            ),
+                          );
+                        },
                       ),
                       IconButton(
                         icon: const Icon(Icons.bookmark_border_rounded, color: Colors.white70, size: 28),
@@ -176,7 +184,7 @@ class HomeScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProfileScreen(), // <--- Memanggil class dari profile.dart
+                              builder: (context) => const ProfileScreen(), 
                             ),
                           );
                         },
