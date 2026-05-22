@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'PyWara',
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

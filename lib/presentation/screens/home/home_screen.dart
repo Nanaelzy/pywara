@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
 import '../profile/statistics_screen.dart'; 
+import '../task/pages/multiple_choice_screen.dart';
 
 class FloatingWidget extends StatefulWidget {
   final Widget child;
@@ -104,11 +105,11 @@ class HomeScreen extends StatelessWidget {
                         ),
                         
                         // Level Node - Unit 1 (Posisi presisi dari Figma kamu)
-                        _buildLevelNode(left: 165, top: 279, label: 'START', isRedText: true),
-                        _buildLevelNode(left: 249, top: 376),
-                        _buildLevelNode(left: 140, top: 455),
-                        _buildLevelNode(left: 72, top: 593),
-                        _buildLevelNode(left: 205, top: 715),
+                        _buildLevelNode(context: context, left: 165, top: 279, label: 'START', isRedText: true),
+                        _buildLevelNode(context: context, left: 249, top: 376),
+                        _buildLevelNode(context: context, left: 140, top: 455),
+                        _buildLevelNode(context: context, left: 72, top: 593),
+                        _buildLevelNode(context: context, left: 205, top: 715),
 
                         // =========================================================
                         // UNIT 2 SECTION
@@ -120,11 +121,11 @@ class HomeScreen extends StatelessWidget {
                         ),
                         
                         // Level Node - Unit 2
-                        _buildLevelNode(left: 249, top: 964),
-                        _buildLevelNode(left: 113, top: 1071),
-                        _buildLevelNode(left: 216, top: 1198),
-                        _buildLevelNode(left: 89, top: 1330),
-                        _buildLevelNode(left: 229, top: 1499),
+                        _buildLevelNode(context: context, left: 249, top: 964),
+                        _buildLevelNode(context: context, left: 113, top: 1071),
+                        _buildLevelNode(context: context, left: 216, top: 1198),
+                        _buildLevelNode(context: context, left: 89, top: 1330),
+                        _buildLevelNode(context: context, left: 229, top: 1499),
 
                         // Teks Kunci / Status di Paling Bawah
                         Positioned(
@@ -337,6 +338,7 @@ class HomeScreen extends StatelessWidget {
 
   // Helper Widget: Lingkaran Node Level
   Widget _buildLevelNode({
+    required BuildContext context,
     required double left, 
     required double top, 
     String? label, 
@@ -390,10 +392,21 @@ class HomeScreen extends StatelessWidget {
     return Positioned(
       left: left,
       top: top,
-      child: SizedBox(
-        width: 71, // Pastikan lebar ini cukup untuk gambar ikon
-        // Jika label diisi, gunakan animasi mengambang. Jika tidak, diam saja.
-        child: label != null ? FloatingWidget(child: nodeContent) : nodeContent,
+      child: GestureDetector(
+        onTap: () {
+          // Navigasi ke halaman Multiple Choice saat tombol task ditekan
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const TaskScreen(), // Ganti dengan nama class di multiple_choice_screen.dart jika berbeda (misal: MultipleChoiceScreen)
+            ),
+          );
+        },
+        child: SizedBox(
+          width: 71, // Pastikan lebar ini cukup untuk gambar ikon
+          // Jika label diisi, gunakan animasi mengambang. Jika tidak, diam saja.
+          child: label != null ? FloatingWidget(child: nodeContent) : nodeContent,
+        ),
       ),
     );
   }
