@@ -197,6 +197,149 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
     );
   }
 
+  
+  void _showHintDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            width: 356,
+            height: 331,
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF5E3E3),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(width: 2, color: Color(0xFFA32A2A)),
+                borderRadius: BorderRadius.circular(26),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 21, top: 37, right: 21,
+                  child: const Text(
+                    'which one do you want AI to do to this question?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 15, fontFamily: 'Ubuntu'),
+                  ),
+                ),
+                // Tombol Penjelasan
+                Positioned(
+                  left: 21, top: 96, right: 21,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context); // Tutup dialog
+                      // TODO: Panggil fungsi AI untuk penjelasan di sini
+                      print("User minta penjelasan syntax");
+                    },
+                    child: Container(
+                      height: 80,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
+                      child: const Text('give me an explanation on how the\nsyntax on this question works', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                    ),
+                  ),
+                ),
+                // Tombol Jawaban
+                Positioned(
+                  left: 21, top: 199, right: 21,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context); // Tutup dialog
+                      _showAnswerDialog();
+                    },
+                    child: Container(
+                      height: 80,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
+                      child: const Text('give me the answer of this question', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Fungsi untuk memunculkan popup jawaban langsung (untuk Task Scramble Code)
+  void _showAnswerDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            width: 356,
+            height: 399, // Tinggi disesuaikan dengan konten baru
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF5E3E3),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(width: 2, color: Color(0xFFA32A2A)),
+                borderRadius: BorderRadius.circular(26),
+              ),
+            ),
+            child: Stack(
+              children: [
+                // Header (Tombol Jawaban)
+                Positioned(
+                  left: 19, top: 36, right: 19,
+                  child: Container(
+                    width: 317,
+                    height: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
+                    child: const Text(
+                      'give me the answer of this question', 
+                      textAlign: TextAlign.center, 
+                      style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')
+                    ),
+                  ),
+                ),
+                // Isi Jawaban (Text.rich)
+                Positioned(
+                  left: 26, top: 130, right: 26,
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'The correct sequence is ',
+                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                        ),
+                        const TextSpan(
+                          text: 'print',
+                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
+                        ),
+                        const TextSpan(
+                          text: ' and ',
+                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                        ),
+                        const TextSpan(
+                          text: 'type.\n',
+                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
+                        ),
+                        const TextSpan(
+                          text: 'The full line should be print(type(myvar)).\n'
+                                'In Python, type() identifies the data\n'
+                                'category of a variable, while print()\n'
+                                'displays that information on the screen.',
+                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -372,18 +515,22 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
             ),
 
             // --- 9. Hint Text ---
-            const Positioned(
+            Positioned(
               left: 0,
               right: 0,
               bottom: 110,
               child: Center(
-                child: Text(
-                  'Need a hint ? Try our AI!',
-                  style: TextStyle(
-                    color: Color(0xFFA30D0D),
-                    fontSize: 15,
-                    fontFamily: 'Ubuntu',
-                    fontWeight: FontWeight.w500,
+                child: GestureDetector( // BUNGKUS DENGAN INI
+                  onTap: _showHintDialog, // PANGGIL FUNGSI POPUP DI SINI
+                  child: const Text(
+                    'Need a hint ? Try our AI!',
+                    style: TextStyle(
+                      color: Color(0xFFA30D0D),
+                      fontSize: 15,
+                      fontFamily: 'Ubuntu',
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline, // Opsional: Tambahkan underline agar user tahu ini tombol
+                    ),
                   ),
                 ),
               ),

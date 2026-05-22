@@ -17,6 +17,73 @@ class _TaskScreenState extends State<TaskScreen> {
   // Jawaban yang benar (Misal index 1: 'print(type(x))')
   final int correctAnswerIndex = 1;
 
+  void _showHintDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            width: 356,
+            height: 331,
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF5E3E3),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(width: 2, color: Color(0xFFA32A2A)),
+                borderRadius: BorderRadius.circular(26),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 21, top: 37, right: 21,
+                  child: const Text(
+                    'which one do you want AI to do to this question?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 15, fontFamily: 'Ubuntu'),
+                  ),
+                ),
+                // Tombol Penjelasan
+                Positioned(
+                  left: 21, top: 96, right: 21,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context); // Tutup dialog
+                      // TODO: Panggil fungsi AI untuk penjelasan di sini
+                      print("User minta penjelasan syntax");
+                    },
+                    child: Container(
+                      height: 80,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
+                      child: const Text('give me an explanation on how the\nsyntax on this question works', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                    ),
+                  ),
+                ),
+                // Tombol Jawaban
+                Positioned(
+                  left: 21, top: 199, right: 21,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context); // Tutup dialog
+                      _showAnswerDialog();
+                    },
+                    child: Container(
+                      height: 80,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
+                      child: const Text('give me the answer of this question', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   // Fungsi untuk memunculkan popup konfirmasi keluar
   void _showQuitConfirmation() {
     showDialog(
@@ -74,6 +141,51 @@ class _TaskScreenState extends State<TaskScreen> {
       },
     );
   }
+
+  // Fungsi untuk memunculkan dialog jawaban langsung
+  void _showAnswerDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            width: 356,
+            height: 347,
+            decoration: ShapeDecoration(
+              color: const Color(0xFFF5E3E3),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(width: 2, color: Color(0xFFA32A2A)),
+                borderRadius: BorderRadius.circular(26),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 25, top: 14, right: 25,
+                  child: Container(
+                    height: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
+                    child: const Text('give me the answer of this question', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                  ),
+                ),
+                const Positioned(
+                  left: 26, top: 125, right: 26,
+                  child: Text(
+                    'The correct answer is:\nprint(type(x))\n\nThis will print the data type of the variable x in Python.\nThe type() function returns the type object and print()\ndisplays it to the console.',
+                    style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -209,18 +321,22 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
 
             // Hint Text
-            const Positioned(
+            Positioned(
               left: 0,
               right: 0,
               bottom: 110,
               child: Center(
-                child: Text(
-                  'Need a hint ? Try our AI!',
-                  style: TextStyle(
-                    color: Color(0xFFA30D0D),
-                    fontSize: 15,
-                    fontFamily: 'Ubuntu',
-                    fontWeight: FontWeight.w500,
+                child: GestureDetector( // BUNGKUS DENGAN INI
+                  onTap: _showHintDialog, // PANGGIL FUNGSI POPUP DI SINI
+                  child: const Text(
+                    'Need a hint ? Try our AI!',
+                    style: TextStyle(
+                      color: Color(0xFFA30D0D),
+                      fontSize: 15,
+                      fontFamily: 'Ubuntu',
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline, // Opsional: Tambahkan underline agar user tahu ini tombol
+                    ),
                   ),
                 ),
               ),
