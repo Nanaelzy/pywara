@@ -2,6 +2,53 @@ import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
 import '../profile/statistics_screen.dart'; 
 
+class FloatingWidget extends StatefulWidget {
+  final Widget child;
+  const FloatingWidget({super.key, required this.child});
+
+  @override
+  State<FloatingWidget> createState() => _FloatingWidgetState();
+}
+
+class _FloatingWidgetState extends State<FloatingWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    // Durasi naik-turun 1.5 detik
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true); // Animasi bolak-balik (naik, lalu turun)
+
+    // Jarak mengambang (dari -6 pixel ke atas, sampai 6 pixel ke bawah)
+    _animation = Tween<double>(begin: -6.0, end: 6.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _animation.value), // Bergerak di sumbu Y
+          child: widget.child,
+        );
+      },
+    );
+  }
+}
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -10,10 +57,23 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       // Kita pakai background putih bawaan dulu supaya kelihatan kalau ada error layout
       backgroundColor: Colors.white, 
-      body: SafeArea(
+      body: SizedBox.expand(
         child: SizedBox.expand(
           child: Stack(
             children: [
+              
+              Positioned(
+                left: -35, // Geser sedikit ke kiri agar terpotong tepi layar
+                top: -20,  // Geser sedikit ke atas agar menembus status bar
+                child: Container(
+                  width: 141,
+                  height: 141,
+                  decoration: const ShapeDecoration(
+                    color: Color(0xFF960606),
+                    shape: OvalBorder(),
+                  ),
+                ),
+              ),
               
               // 1. KONTEN TENGAH YANG BISA DI-SCROLL
               Positioned.fill(
@@ -33,6 +93,7 @@ class HomeScreen extends StatelessWidget {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
+
                         // =========================================================
                         // UNIT 1 SECTION
                         // =========================================================
@@ -107,33 +168,60 @@ class HomeScreen extends StatelessWidget {
               Positioned(
                 top: 0,
                 left: 0,
-                right: 25,
+                right: 5,
                 child: Container(
-                  height: 90,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  height: 80,
+                  color: Colors.white, // Background bar putih
+                  child: Stack(
+                    clipBehavior: Clip.none, // Agar lingkaran bisa keluar dari batas 80px
                     children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage("https://placehold.co/52x52"),
-                            fit: BoxFit.cover,
+                      // =========================================================
+                      // LINGKARAN MERAH (Sekarang ada di layer Top Bar)
+                      // =========================================================
+                      Positioned(
+                        left: -35,
+                        top: -35,
+                        child: Container(
+                          width: 141,
+                          height: 141,
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFF960606),
+                            shape: OvalBorder(),
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          _buildTopStatItem(Icons.local_fire_department, '40', const Color(0xFFFF9600)),
-                          const SizedBox(width: 16),
-                          _buildTopStatItem(Icons.stars, '103', const Color(0xFF1CB0F6)),
-                          const SizedBox(width: 16),
-                          _buildTopStatItem(Icons.favorite, '5', const Color(0xFFFF4B4B)),
-                        ],
+                      
+                      // =========================================================
+                      // KONTEN PROFILE & ANGKA STATISTIK
+                      // =========================================================
+                      Padding(
+                        // Padding dipindah ke sini agar lingkaran merah tidak ikut ter-padding
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 59,
+                              height: 100,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/pylogo.png"), 
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                _buildTopStatItem(Icons.local_fire_department, '40', const Color(0xFFFF9600)),
+                                const SizedBox(width: 16),
+                                _buildTopStatItem(Icons.diamond, '103', const Color(0xFF1CB0F6)),
+                                const SizedBox(width: 16),
+                                _buildTopStatItem(Icons.favorite, '5', const Color(0xFFFF4B4B)),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -248,37 +336,64 @@ class HomeScreen extends StatelessWidget {
   }
 
   // Helper Widget: Lingkaran Node Level
-  Widget _buildLevelNode({required double left, required double top, String? label, bool isRedText = false}) {
+  Widget _buildLevelNode({
+    required double left, 
+    required double top, 
+    String? label, 
+    bool isRedText = false,
+    bool isDone = false,
+  }) {
+    // Konten utamanya (Balon teks + Gambar Node)
+    Widget nodeContent = Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        // 1. Gambar Ikon Level
+        Image.asset(
+          isDone ? "assets/images/Taskdone.png" : "assets/images/Task.png",
+          width: 71,
+          height: 71,
+          fit: BoxFit.contain,
+        ),
+        
+        // 2. Balon Teks "START" (Hanya muncul jika label tidak null)
+        if (label != null)
+          Positioned(
+            top: -35, // Geser balon ke atas ikon
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey.shade300, width: 2),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  )
+                ]
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: isRedText ? const Color(0xFFED0C0C) : Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+
     return Positioned(
       left: left,
       top: top,
       child: SizedBox(
-        width: 71,
-        height: 65,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFFFFEEEC), // Background lingkaran biar kelihatan pas kosong
-                image: DecorationImage(
-                  image: NetworkImage("https://placehold.co/71x65"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            if (label != null)
-              Text(
-                label,
-                style: TextStyle(
-                  color: isRedText ? const Color(0xFFED0C0C) : Colors.black,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-          ],
-        ),
+        width: 71, // Pastikan lebar ini cukup untuk gambar ikon
+        // Jika label diisi, gunakan animasi mengambang. Jika tidak, diam saja.
+        child: label != null ? FloatingWidget(child: nodeContent) : nodeContent,
       ),
     );
   }
