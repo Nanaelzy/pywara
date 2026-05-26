@@ -419,7 +419,7 @@ class HomeScreen extends StatelessWidget {
         // 2. Balon Teks "START" (Hanya muncul jika label tidak null)
         if (label != null)
           Positioned(
-            top: -35, // Geser balon ke atas ikon
+            top: -42, // Geser balon ke atas ikon
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
