@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../home/home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScrambleCodeScreen extends StatefulWidget {
   const ScrambleCodeScreen({super.key});
@@ -49,7 +50,7 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
       enableDrag: false,    
       builder: (BuildContext context) {
         return SizedBox(
-          height: 363,
+          height: 363.h,
           width: double.infinity,
           child: Stack(
             children: [
@@ -58,12 +59,12 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                 right: 0,
                 top: 0,
                 child: Container(
-                  height: 363,
-                  decoration: const BoxDecoration(
+                  height: 363.h,
+                  decoration: BoxDecoration(
                     color: Color(0xFF8A1212),
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40.r),
+                      topRight: Radius.circular(40.r),
                     ),
                   ),
                 ),
@@ -71,28 +72,28 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
               Positioned(
                 left: 0,
                 right: 0,
-                top: 8,
+                top: 8.h,
                 child: Container(
-                  height: 355,
-                  decoration: const BoxDecoration(
+                  height: 355.h,
+                  decoration: BoxDecoration(
                     color: Color(0xFFD85959),
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
+                      topLeft: Radius.circular(40.r),
+                      topRight: Radius.circular(40.r),
                     ),
                   ),
                 ),
               ),
-              const Positioned(
-                left: 20,
-                right: 20,
-                top: 77,
+               Positioned(
+                left: 20.w,
+                right: 20.w,
+                top: 77.h,
                 child: Text(
                   'you already finished the lesson',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFFFDFFFC),
-                    fontSize: 32,
+                    fontSize: 32.sp,
                     fontFamily: 'Baloo Bhaijaan',
                     height: 1.2,
                     fontWeight: FontWeight.bold,
@@ -100,9 +101,9 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                 ),
               ),
               Positioned(
-                left: 32,
-                right: 32,
-                top: 246,
+                left: 32.w,
+                right: 32.w,
+                top: 246.h,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pushReplacement(
@@ -111,20 +112,20 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                     );
                   },
                   child: Container(
-                    height: 74,
+                    height: 74.h,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFCFB),
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(40.r),
                       boxShadow: const [
                         BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))
                       ],
                     ),
-                    child: const Text(
+                    child: Text(
                       'back to homepage',
                       style: TextStyle(
                         color: Color(0xFF956B0B),
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontFamily: 'B612 Mono',
                         fontWeight: FontWeight.bold,
                       ),
@@ -146,7 +147,7 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
           title: const Text(
             'Quit Lesson?',
@@ -156,11 +157,11 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
               color: Color(0xFFA30D0D),
             ),
           ),
-          content: const Text(
+          content: Text(
             'Are you sure you want to quit? All your progress in this lesson will be lost.',
             style: TextStyle(
               fontFamily: 'Nunito',
-              fontSize: 16,
+              fontSize: 16.sp,
             ),
           ),
           actions: [
@@ -169,9 +170,9 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
               onPressed: () {
                 Navigator.pop(context); // Hanya menutup dialog popup 
               },
-              child: const Text(
+              child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: TextStyle(color: Colors.grey, fontSize: 16.sp),
               ),
             ),
             // Tombol Quit (Jadi keluar)
@@ -182,11 +183,11 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                       MaterialPageRoute(builder: (context) => const HomeScreen()),
                     );
                   },
-              child: const Text(
+              child: Text(
                 'Quit',
                 style: TextStyle(
                   color: Color(0xFFD60000), 
-                  fontSize: 16, 
+                  fontSize: 16.sp, 
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -205,28 +206,28 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
-            width: 356,
-            height: 331,
+            width: 356.w,
+            height: 331.h,
             decoration: ShapeDecoration(
               color: const Color(0xFFF5E3E3),
               shape: RoundedRectangleBorder(
                 side: const BorderSide(width: 2, color: Color(0xFFA32A2A)),
-                borderRadius: BorderRadius.circular(26),
+                borderRadius: BorderRadius.circular(26.r),
               ),
             ),
             child: Stack(
               children: [
                 Positioned(
-                  left: 21, top: 37, right: 21,
-                  child: const Text(
+                  left: 2.w, top: 37.h, right: 21.w,
+                  child: Text(
                     'which one do you want AI to do to this question?',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 15, fontFamily: 'Ubuntu'),
+                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 15.sp, fontFamily: 'Ubuntu'),
                   ),
                 ),
                 // Tombol Penjelasan
                 Positioned(
-                  left: 21, top: 96, right: 21,
+                  left: 21.w, top: 96.h, right: 21.w,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pop(context); // Tutup dialog
@@ -234,26 +235,26 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                       print("User minta penjelasan syntax");
                     },
                     child: Container(
-                      height: 80,
+                      height: 80.h,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
-                      child: const Text('give me an explanation on how the\nsyntax on this question works', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(1.3.r)),
+                      child: Text('give me an explanation on how the\nsyntax on this question works', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15.sp, fontFamily: 'Ubuntu')),
                     ),
                   ),
                 ),
                 // Tombol Jawaban
                 Positioned(
-                  left: 21, top: 199, right: 21,
+                  left: 21.w, top: 199.h, right: 21.w,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pop(context); // Tutup dialog
                       _showAnswerDialog();
                     },
                     child: Container(
-                      height: 80,
+                      height: 80.h,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
-                      child: const Text('give me the answer of this question', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')),
+                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13.r)),
+                      child: Text('give me the answer of this question', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15.sp, fontFamily: 'Ubuntu')),
                     ),
                   ),
                 ),
@@ -273,60 +274,60 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
         return Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
-            width: 356,
-            height: 399, // Tinggi disesuaikan dengan konten baru
+            width: 356.w,
+            height: 399.h, // Tinggi disesuaikan dengan konten baru
             decoration: ShapeDecoration(
               color: const Color(0xFFF5E3E3),
               shape: RoundedRectangleBorder(
                 side: const BorderSide(width: 2, color: Color(0xFFA32A2A)),
-                borderRadius: BorderRadius.circular(26),
+                borderRadius: BorderRadius.circular(26.r),
               ),
             ),
             child: Stack(
               children: [
                 // Header (Tombol Jawaban)
                 Positioned(
-                  left: 19, top: 36, right: 19,
+                  left: 19.w, top: 36.h, right: 19.w,
                   child: Container(
-                    width: 317,
-                    height: 80,
+                    width: 317.w,
+                    height: 80.h,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13)),
-                    child: const Text(
+                    decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13.r)),
+                    child: Text(
                       'give me the answer of this question', 
                       textAlign: TextAlign.center, 
-                      style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Ubuntu')
+                      style: TextStyle(color: Colors.white, fontSize: 15.sp, fontFamily: 'Ubuntu')
                     ),
                   ),
                 ),
                 // Isi Jawaban (Text.rich)
                 Positioned(
-                  left: 26, top: 130, right: 26,
+                  left: 26.w, top: 130.h, right: 26.w,
                   child: Text.rich(
                     TextSpan(
                       children: [
-                        const TextSpan(
+                         TextSpan(
                           text: 'The correct sequence is ',
-                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded'),
                         ),
-                        const TextSpan(
+                         TextSpan(
                           text: 'print',
-                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
+                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
                         ),
-                        const TextSpan(
+                         TextSpan(
                           text: ' and ',
-                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded'),
                         ),
-                        const TextSpan(
+                         TextSpan(
                           text: 'type.\n',
-                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
+                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
                         ),
-                        const TextSpan(
+                         TextSpan(
                           text: 'The full line should be print(type(myvar)).\n'
                                 'In Python, type() identifies the data\n'
                                 'category of a variable, while print()\n'
                                 'displays that information on the screen.',
-                          style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Tsukimi Rounded'),
+                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded'),
                         ),
                       ],
                     ),
@@ -363,7 +364,7 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
             // --- 2. Top Bar Shadow ---
             Container(
               width: double.infinity,
-              height: 70, 
+              height: 70.h, 
               decoration: const BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -374,13 +375,13 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
 
             // --- 3. Tombol Back ---
             Positioned(
-              left: 18,
-              top: 15,
+              left: 18.w,
+              top: 15.h,
               child: InkWell(
                 onTap: () => _showQuitConfirmation(),
                 child: Container(
-                  width: 39,
-                  height: 39,
+                  width: 39.w,
+                  height: 39.h,
                   decoration: const BoxDecoration(
                     color: Color(0xFFF8F8F8),
                     shape: BoxShape.circle,
@@ -392,39 +393,39 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
 
             // --- 4. Progress Bar (3/3) ---
             Positioned(
-              left: 70,
-              top: 30,
+              left: 70.w,
+              top: 30.h,
               child: Container(
-                width: 290,
-                height: 10,
+                width: 290.w,
+                height: 10.h,
                 decoration: BoxDecoration(
                   color: const Color(0x4C909090),
-                  borderRadius: BorderRadius.circular(13),
+                  borderRadius: BorderRadius.circular(13.r),
                 ),
               ),
             ),
             Positioned(
-              left: 70, 
-              top: 30,
+              left: 70.w, 
+              top: 30.h,
               child: Container(
-                width: 290, 
-                height: 10,
+                width: 290.w, 
+                height: 10.h,
                 decoration: BoxDecoration(
                   color: const Color(0xFF960606),
-                  borderRadius: BorderRadius.circular(13),
+                  borderRadius: BorderRadius.circular(13.r),
                 ),
               ),
             ),
             
             // --- 5. Teks Indikator Soal ---
-            const Positioned(
-              right: 18,
-              top: 24,
+             Positioned(
+              right: 18.w,
+              top: 24.h,
               child: Text(
                 '3/3',
                 style: TextStyle(
                   color: Color(0xFF960606),
-                  fontSize: 15.50,
+                  fontSize: 15.50.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.bold,
                 ),
@@ -440,7 +441,7 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: const Color(0x99DDDDDD),
-                  borderRadius: BorderRadius.circular(13),
+                  borderRadius: BorderRadius.circular(13.r),
                 ),
                 child: const Text(
                   'Select the correct functions to print the data type of a variable:',
