@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Pastikan import ini ada
 import 'intro_screen2.dart';
 
 class IntroScreen1 extends StatelessWidget {
@@ -8,48 +9,46 @@ class IntroScreen1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: 1.sw, // Menggunakan screen width
+        height: 1.sh, // Menggunakan screen height
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(color: Colors.black),
         child: Stack(
           children: [
             // 1. Background Gradient Merah
-            Positioned(
-              left: 0,
-              top: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(1.00, 0.38),
-                    end: Alignment(0.00, 0.00),
-                    colors: [Color(0xFF810202), Color(0xFFD70000)],
-                  ),
+            Container(
+              width: 1.sw,
+              height: 1.sh,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(1.00, 0.38),
+                  end: Alignment(0.00, 0.00),
+                  colors: [Color(0xFF810202), Color(0xFFD70000)],
                 ),
               ),
             ),
 
             // 2. Icon Target 🎯
-            const Positioned(
+            Positioned(
               left: 0,
               right: 0,
-              top: 250, // Disesuaikan sedikit agar proporsional
-              child: Center(child: Text('🎯', style: TextStyle(fontSize: 120))),
+              top: 250.h,
+              child: Center(
+                child: Text('🎯', style: TextStyle(fontSize: 120.sp)),
+              ),
             ),
 
             // 3. Welcome Text
-            const Positioned(
+            Positioned(
               left: 0,
               right: 0,
-              top: 436,
+              top: 436.h,
               child: Center(
                 child: Text(
                   'Welcome to PyWara!',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 22,
+                    fontSize: 22.sp,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                   ),
@@ -58,17 +57,17 @@ class IntroScreen1 extends StatelessWidget {
             ),
 
             // 4. Description Text
-            const Positioned(
-              left: 60,
-              top: 480,
+            Positioned(
+              left: 60.w,
+              top: 480.h,
               child: SizedBox(
-                width: 294,
+                width: 294.w,
                 child: Text(
                   'Your AI companion will guide you through interactive Python lessons designed for beginners.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                     height: 1.5,
@@ -77,32 +76,31 @@ class IntroScreen1 extends StatelessWidget {
               ),
             ),
 
-            // 5. Pagination Indicators (Titik-titik slide)
+            // 5. Pagination Indicators
             Positioned(
               left: 0,
               right: 0,
-              top: 780,
+              top: 780.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildIndicator(width: 38, isActive: true), // Slide 1 Aktif
-                  const SizedBox(width: 5),
-                  _buildIndicator(width: 15, isActive: false),
-                  const SizedBox(width: 5),
-                  _buildIndicator(width: 15, isActive: false),
-                  const SizedBox(width: 5),
-                  _buildIndicator(width: 15, isActive: false),
+                  _buildIndicator(width: 38.w, isActive: true),
+                  SizedBox(width: 5.w),
+                  _buildIndicator(width: 15.w, isActive: false),
+                  SizedBox(width: 5.w),
+                  _buildIndicator(width: 15.w, isActive: false),
+                  SizedBox(width: 5.w),
+                  _buildIndicator(width: 15.w, isActive: false),
                 ],
               ),
             ),
 
-            // 6. Tombol Next (BISA DIPENCET)
+            // 6. Tombol Next
             Positioned(
-              left: 27,
-              top: 816,
+              left: 27.w,
+              top: 816.h,
               child: GestureDetector(
                 onTap: () {
-                  // Menggunakan Navigator.push untuk berpindah ke IntroScreen2
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -110,10 +108,9 @@ class IntroScreen1 extends StatelessWidget {
                     ),
                   );
                 },
-
                 child: Container(
-                  width: 358,
-                  height: 62,
+                  width: 358.w,
+                  height: 62.h,
                   decoration: ShapeDecoration(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -121,15 +118,15 @@ class IntroScreen1 extends StatelessWidget {
                         width: 2.50,
                         color: Color(0xFFFEE4E1),
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Next  >',
                       style: TextStyle(
-                        color: Color(0xFF960606),
-                        fontSize: 16,
+                        color: const Color(0xFF960606),
+                        fontSize: 16.sp,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
@@ -144,14 +141,15 @@ class IntroScreen1 extends StatelessWidget {
     );
   }
 
-  // Helper untuk membuat garis indikator slide
   Widget _buildIndicator({required double width, required bool isActive}) {
     return Container(
       width: width,
-      height: 10,
+      height: 10.h,
       decoration: ShapeDecoration(
         color: isActive ? Colors.white : const Color(0x77D9D9D9),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
       ),
     );
   }
