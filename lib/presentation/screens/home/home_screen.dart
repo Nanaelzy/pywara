@@ -34,8 +34,8 @@ class _HoverFloatingWidgetState extends State<HoverFloatingWidget>
     );
 
     _animation = Tween<double>(
-      begin: -6.0,
-      end: 6.0,
+      begin: -6.h, // Ditambahkan .h agar jarak naik-turun juga proporsional
+      end: 6.h,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
@@ -118,18 +118,18 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Kita pakai background putih bawaan dulu supaya kelihatan kalau ada error layout
       backgroundColor: Colors.white,
       body: SizedBox.expand(
         child: SizedBox.expand(
           child: Stack(
             children: [
               Positioned(
-                left: -35.w, // Geser sedikit ke kiri agar terpotong tepi layar
-                top: -20.h, // Geser sedikit ke atas agar menembus status bar
+                left: -35.w,
+                top: -20.h,
                 child: Container(
                   width: 141.w,
-                  height: 141.w,
+                  height: 141
+                      .w, // Dipertahankan .w agar bentuknya tetap bulat sempurna
                   decoration: const ShapeDecoration(
                     color: Color(0xFF960606),
                     shape: OvalBorder(),
@@ -142,9 +142,8 @@ class HomeScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Container(
-                    // Paksa tinggi container minimal 1850 sesuai desain Figma kamu agar bisa di-scroll
                     width: double.infinity,
-                    height: 1850,
+                    height: 1850.h,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment(0.5, 0.0),
@@ -159,69 +158,107 @@ class HomeScreen extends StatelessWidget {
                         // UNIT 1 SECTION
                         // =========================================================
                         _buildUnitHeader(
-                          top: 117,
+                          top: 117.h,
                           title: 'Unit 1',
                           subtitle: 'Get started with Python basics',
                         ),
 
-                        // Level Node - Unit 1 (Posisi presisi dari Figma kamu)
+                        // Level Node - Unit 1
                         _buildLevelNode(
                           context: context,
-                          left: 165,
-                          top: 279,
+                          left: 165.w,
+                          top: 279.h,
                           label: 'START',
                           isRedText: true,
                         ),
-                        _buildLevelNode(context: context, left: 249, top: 376),
-                        _buildLevelNode(context: context, left: 140, top: 455),
-                        _buildLevelNode(context: context, left: 72, top: 593),
-                        _buildLevelNode(context: context, left: 205, top: 715),
+                        _buildLevelNode(
+                          context: context,
+                          left: 249.w,
+                          top: 376.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 140.w,
+                          top: 455.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 72.w,
+                          top: 593.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 205.w,
+                          top: 715.h,
+                        ),
 
                         // =========================================================
                         // UNIT 2 SECTION
                         // =========================================================
                         _buildUnitHeader(
-                          top: 840,
+                          top: 840.h,
                           title: 'Unit 2',
                           subtitle: 'Learn control flow',
                         ),
 
                         // Level Node - Unit 2
-                        _buildLevelNode(context: context, left: 249, top: 999),
-                        _buildLevelNode(context: context, left: 100, top: 1071),
-                        _buildLevelNode(context: context, left: 216, top: 1198),
-                        _buildLevelNode(context: context, left: 120, top: 1330),
-                        _buildLevelNode(context: context, left: 229, top: 1470),
+                        _buildLevelNode(
+                          context: context,
+                          left: 249.w,
+                          top: 999.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 100.w,
+                          top: 1071.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 216.w,
+                          top: 1198.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 120.w,
+                          top: 1330.h,
+                        ),
+                        _buildLevelNode(
+                          context: context,
+                          left: 229.w,
+                          top: 1470.h,
+                        ),
+
                         // Teks Kunci / Status di Paling Bawah
                         Positioned(
                           left: 0,
                           right: 0,
-                          top: 1621,
+                          top: 1621.h,
                           child: Column(
                             children: [
-                              const Text(
+                              Text(
+                                // Dihapus const-nya
                                 'Finish the previous lesson first',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Color(0xFFB7B7B7),
-                                  fontSize: 12,
+                                  color: const Color(0xFFB7B7B7),
+                                  fontSize: 12.sp,
                                   fontFamily: 'Ubuntu Condensed',
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              SizedBox(height: 8.h),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: List.generate(
                                   3,
                                   (index) => Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 3,
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: 3.w,
                                     ),
-                                    width: 10.57,
-                                    height: 10,
+                                    width: 10.57.w,
+                                    height: 10.h,
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFB7B7B7),
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(20.r),
                                     ),
                                   ),
                                 ),
@@ -235,27 +272,24 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // 2. TOP STATUS BAR (Tetap di atas, tidak ikut ter-scroll)
+              // 2. TOP STATUS BAR
               Positioned(
                 top: 0,
                 left: 0,
-                right: 5,
+                right: 5.w,
                 child: Container(
-                  height: 80,
-                  color: Colors.white, // Background bar putih
+                  height: 80.h,
+                  color: Colors.white,
                   child: Stack(
-                    clipBehavior:
-                        Clip.none, // Agar lingkaran bisa keluar dari batas 80px
+                    clipBehavior: Clip.none,
                     children: [
-                      // =========================================================
-                      // LINGKARAN MERAH (Sekarang ada di layer Top Bar)
-                      // =========================================================
+                      // LINGKARAN MERAH DI POJOK KIRI ATAS
                       Positioned(
-                        left: -35,
-                        top: -35,
+                        left: -35.w,
+                        top: -35.h,
                         child: Container(
-                          width: 141,
-                          height: 141,
+                          width: 141.w,
+                          height: 141.h,
                           decoration: const ShapeDecoration(
                             color: Color(0xFF960606),
                             shape: OvalBorder(),
@@ -263,21 +297,18 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
 
-                      // =========================================================
                       // KONTEN PROFILE & ANGKA STATISTIK
-                      // =========================================================
                       Padding(
-                        // Padding dipindah ke sini agar lingkaran merah tidak ikut ter-padding
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 10.h,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: 59,
-                              height: 100,
+                              width: 59.w,
+                              height: 100.h,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
@@ -293,13 +324,13 @@ class HomeScreen extends StatelessWidget {
                                   '40',
                                   const Color(0xFFFF9600),
                                 ),
-                                const SizedBox(width: 16),
+                                SizedBox(width: 16.w),
                                 _buildTopStatItem(
                                   Icons.diamond,
                                   '103',
                                   const Color(0xFF1CB0F6),
                                 ),
-                                const SizedBox(width: 16),
+                                SizedBox(width: 16.w),
                                 _buildTopStatItem(
                                   Icons.favorite,
                                   '5',
@@ -315,50 +346,45 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
 
-              // 3. BOTTOM NAVIGATION BAR (Tetap di bawah, tidak ikut ter-scroll)
+              // 3. BOTTOM NAVIGATION BAR
               Positioned(
                 left: 0,
                 right: 0,
-                bottom:
-                    0, //  MENGGUNAKAN BOTTOM: Mengunci menu agar selalu menempel di bagian bawah layar
+                bottom: 0,
                 child: Container(
-                  height: 75, // Menyesuaikan tinggi bar menu
-                  decoration: const BoxDecoration(
-                    color: Color(
-                      0xFF8A1212,
-                    ), // Warna merah gelap sesuai desainmu
+                  height: 75.h,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF8A1212),
                     borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(16),
+                      top: Radius.circular(16.r),
                     ),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment
-                        .spaceEvenly, // Membagi jarak antar icon secara otomatis
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.home,
                           color: Colors.white,
-                          size: 28,
+                          size: 28.sp,
                         ),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.military_tech_outlined,
                           color: Colors.white70,
-                          size: 28,
+                          size: 28.sp,
                         ),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.bar_chart_rounded,
                           color: Colors.white70,
-                          size: 28,
+                          size: 28.sp,
                         ),
                         onPressed: () {
-                          // TAMBAHKAN NAVIGASI DI SINI:
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -368,18 +394,18 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.bookmark_border_rounded,
                           color: Colors.white70,
-                          size: 28,
+                          size: 28.sp,
                         ),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.person,
                           color: Colors.white70,
-                          size: 28,
+                          size: 28.sp,
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -408,11 +434,11 @@ class HomeScreen extends StatelessWidget {
     required String subtitle,
   }) {
     return Positioned(
-      left: 16,
-      right: 16,
-      top: top,
+      left: 16.w,
+      right: 16.w,
+      top: top, // Nilai top sudah diisi format .h pada saat dipanggil
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.w),
         decoration: ShapeDecoration(
           gradient: const LinearGradient(
             begin: Alignment(0.00, 0.50),
@@ -420,8 +446,8 @@ class HomeScreen extends StatelessWidget {
             colors: [Color(0xFF960606), Color(0xFFD60000)],
           ),
           shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 4, color: Colors.white),
-            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(width: 4.w, color: Colors.white),
+            borderRadius: BorderRadius.circular(16.r),
           ),
           shadows: const [
             BoxShadow(
@@ -440,25 +466,25 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 22,
+                      fontSize: 22.sp,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.menu_book, color: Colors.white, size: 24),
+            Icon(Icons.menu_book, color: Colors.white, size: 24.sp),
           ],
         ),
       ),
@@ -474,28 +500,24 @@ class HomeScreen extends StatelessWidget {
     bool isRedText = false,
     bool isDone = false,
   }) {
-    // Konten utamanya (Balon teks + Gambar Node)
     Widget nodeContent = Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        // 1. Gambar Ikon Level
         Image.asset(
           isDone ? "assets/images/Taskdone.png" : "assets/images/Task.png",
-          width: 71,
-          height: 71,
+          width: 71.w,
+          height: 71.h,
           fit: BoxFit.contain,
         ),
-
-        // 2. Balon Teks "START" (Hanya muncul jika label tidak null)
         if (label != null)
           Positioned(
-            top: -42, // Geser balon ke atas ikon
+            top: -42.h,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(color: Colors.grey.shade300, width: 2),
                 boxShadow: const [
                   BoxShadow(
@@ -509,7 +531,7 @@ class HomeScreen extends StatelessWidget {
                 label,
                 style: TextStyle(
                   color: isRedText ? const Color(0xFFED0C0C) : Colors.black,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -522,34 +544,31 @@ class HomeScreen extends StatelessWidget {
       left: left,
       top: top,
       child: SizedBox(
-        width: 71,
+        width: 71.w,
         child: HoverFloatingWidget(
           onTap: () async {
-            // Menampilkan Pop-Up dari bawah
             await showModalBottomSheet(
               context: context,
-              backgroundColor: Colors
-                  .transparent, // Dibuat transparan agar radius lengkungmu terlihat
+              backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
                 return SizedBox(
-                  width: 412,
-                  height: 227,
+                  width: 1.sw, // Memastikan selebar ukuran perangkat
+                  height: 227.h,
                   child: Stack(
                     children: [
                       // Background Merah Gelap (belakang)
                       Positioned(
                         left: 0,
                         top: 0,
-                        right:
-                            0, // Ditambahkan right: 0 agar menyesuaikan lebar layar
+                        right: 0,
                         child: Container(
-                          height: 219,
-                          decoration: const ShapeDecoration(
-                            color: Color(0xFF8A1212),
+                          height: 219.h,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFF8A1212),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                topRight: Radius.circular(40),
+                                topLeft: Radius.circular(40.r),
+                                topRight: Radius.circular(40.r),
                               ),
                             ),
                           ),
@@ -558,50 +577,46 @@ class HomeScreen extends StatelessWidget {
                       // Background Merah Terang (depan)
                       Positioned(
                         left: 0,
-                        top: 8,
+                        top: 8.h,
                         right: 0,
                         child: Container(
-                          height: 219,
-                          decoration: const ShapeDecoration(
-                            color: Color(0xFFD85959),
+                          height: 219.h,
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFFD85959),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(40),
-                                topRight: Radius.circular(40),
+                                topLeft: Radius.circular(40.r),
+                                topRight: Radius.circular(40.r),
                               ),
                             ),
                           ),
                         ),
                       ),
                       // Judul Unit / Task
-                      const Positioned(
+                      Positioned(
                         left: 0,
                         right: 0,
-                        top: 46,
+                        top: 46.h,
                         child: Text(
                           'python syntax',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Color(0xFFFDFFFC),
-                            fontSize: 32,
+                            color: const Color(0xFFFDFFFC),
+                            fontSize: 32.sp,
                             fontFamily: 'Ubuntu',
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                      // Tombol Start (Background Putih + Teks digabung)
+                      // Tombol Start
                       Positioned(
-                        left: 37,
-                        right:
-                            37, // Menggunakan left & right agar posisinya seimbang di tengah
-                        top: 122,
+                        left: 37.w,
+                        right: 37.w,
+                        top: 122.h,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pop(
-                              context,
-                            ); // 1. Tutup pop-up dari bawah
+                            Navigator.pop(context);
                             Navigator.push(
-                              // 2. Pindah ke halaman Multiple Choice
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const TaskScreen(),
@@ -609,21 +624,20 @@ class HomeScreen extends StatelessWidget {
                             );
                           },
                           child: Container(
-                            height: 74,
+                            height: 74.h,
                             decoration: ShapeDecoration(
                               color: const Color(0xFFFFFCFB),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
+                                borderRadius: BorderRadius.circular(40.r),
                               ),
                             ),
-                            alignment: Alignment
-                                .center, // Memastikan teks ada tepat di tengah tombol
-                            child: const Text(
+                            alignment: Alignment.center,
+                            child: Text(
                               'Start  +20 xp',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Color(0xFF956B0B),
-                                fontSize: 20,
+                                color: const Color(0xFF956B0B),
+                                fontSize: 20.sp,
                                 fontFamily: 'B612 Mono',
                                 fontWeight: FontWeight.w400,
                               ),
@@ -648,13 +662,13 @@ class HomeScreen extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: color, size: 24),
-        const SizedBox(width: 4),
+        Icon(icon, color: color, size: 24.sp),
+        SizedBox(width: 4.w),
         Text(
           value,
           style: TextStyle(
             color: color,
-            fontSize: 20,
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),
         ),

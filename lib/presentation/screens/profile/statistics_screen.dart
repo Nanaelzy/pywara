@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Tambahkan import ini
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});
@@ -9,12 +10,14 @@ class StatisticsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       // 1. APPBAR UTAMA
       appBar: AppBar(
-        title: const Text(
+        title: Text(
+          // Hapus const
           'Statistic',
           style: TextStyle(
-            color: Color(0xFFA30D0D),
+            // Hapus const
+            color: const Color(0xFFA30D0D),
             fontWeight: FontWeight.w700,
-            fontSize: 16,
+            fontSize: 16.sp, // Tambah .sp
             fontFamily: 'Inter',
           ),
         ),
@@ -38,26 +41,30 @@ class StatisticsScreen extends StatelessWidget {
           ),
         ),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 21.0, vertical: 24.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: 21.w,
+            vertical: 24.h,
+          ), // Hapus const, tambah .w & .h
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ================= 2. KARTU CURRENT STREAK (GRADASI) =================
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(24),
+                padding: EdgeInsets.all(24.w), // Hapus const, tambah .w
                 decoration: BoxDecoration(
+                  // Hapus const
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [Color(0xFF960606), Color(0xFFD54E00)],
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r), // Tambah .r
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 15,
-                      offset: const Offset(0, 10),
+                      offset: Offset(0, 10.h), // Hapus const, tambah .h
                     ),
                   ],
                 ),
@@ -70,42 +77,54 @@ class StatisticsScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.local_fire_department, color: Colors.white70, size: 24),
-                              const SizedBox(width: 8),
+                              Icon(
+                                Icons.local_fire_department,
+                                color: Colors.white70,
+                                size: 24.sp,
+                              ), // Hapus const, tambah .sp
+                              SizedBox(width: 8.w), // Hapus const, tambah .w
                               Text(
+                                // Hapus const
                                 'Current Streak',
                                 style: TextStyle(
+                                  // Hapus const
                                   color: Colors.white.withOpacity(0.9),
-                                  fontSize: 16,
+                                  fontSize: 16.sp, // Tambah .sp
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12),
-                          const Text(
+                          SizedBox(height: 12.h), // Hapus const, tambah .h
+                          Text(
+                            // Hapus const
                             '40 days',
                             style: TextStyle(
+                              // Hapus const
                               color: Colors.white,
-                              fontSize: 36,
+                              fontSize: 36.sp, // Tambah .sp
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          const Text(
+                          SizedBox(height: 8.h), // Hapus const, tambah .h
+                          Text(
+                            // Hapus const
                             'Your longest streak: 12 days',
                             style: TextStyle(
-                              color: Color(0xFFDBEAFE),
-                              fontSize: 14,
+                              // Hapus const
+                              color: const Color(0xFFDBEAFE),
+                              fontSize: 14.sp, // Tambah .sp
                             ),
                           ),
                         ],
                       ),
                     ),
                     Text(
+                      // Hapus const
                       '🔥',
                       style: TextStyle(
-                        fontSize: 60,
+                        // Hapus const
+                        fontSize: 60.sp, // Tambah .sp
                         color: Colors.white.withOpacity(0.2),
                       ),
                     ),
@@ -113,31 +132,33 @@ class StatisticsScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 28),
-
+              SizedBox(height: 28.h), // Hapus const, tambah .h
               // ================= 3. SECTION: TODAY'S PROGRESS =================
-              const Text(
+              Text(
+                // Hapus const
                 "Today's Progress",
                 style: TextStyle(
-                  color: Color(0xFF960606),
-                  fontSize: 20,
+                  // Hapus const
+                  color: const Color(0xFF960606),
+                  fontSize: 20.sp, // Tambah .sp
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Inter',
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20.w), // Hapus const, tambah .w
                 decoration: BoxDecoration(
+                  // Hapus const
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(20.r), // Tambah .r
                   border: Border.all(color: const Color(0xFFFFEEEC)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.05),
                       blurRadius: 3,
-                      offset: const Offset(0, 1),
+                      offset: Offset(0, 1.h), // Hapus const, tambah .h
                     ),
                   ],
                 ),
@@ -147,61 +168,71 @@ class StatisticsScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
+                          // Hapus const
                           'Daily Goal',
                           style: TextStyle(
-                            color: Color(0xFF960606),
-                            fontSize: 16,
+                            // Hapus const
+                            color: const Color(0xFF960606),
+                            fontSize: 16.sp, // Tambah .sp
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
+                          // Hapus const
                           '8/10 min',
                           style: TextStyle(
+                            // Hapus const
                             color: const Color(0xFFD60000),
-                            fontSize: 14,
+                            fontSize: 14.sp, // Tambah .sp
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    // PROGRESS BAR ASLI FLUTTER (Lebih Presisi daripada Container kaku)
+                    SizedBox(height: 16.h), // Hapus const, tambah .h
+                    // PROGRESS BAR ASLI FLUTTER
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: const LinearProgressIndicator(
-                        value: 0.8, // 8 dari 10 menit berarti 80% (0.8)
-                        minHeight: 12,
-                        backgroundColor: Color(0xFFFFEEEC),
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF960606)),
+                      // Hapus const
+                      borderRadius: BorderRadius.circular(12.r), // Tambah .r
+                      child: LinearProgressIndicator(
+                        // Hapus const
+                        value: 0.8,
+                        minHeight: 12.h, // Tambah .h
+                        backgroundColor: const Color(0xFFFFEEEC),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          Color(0xFF960606),
+                        ), // Pindah const
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
+                    SizedBox(height: 16.h), // Hapus const, tambah .h
+                    Text(
+                      // Hapus const
                       '2 more minutes to reach your goal!',
                       style: TextStyle(
-                        color: Color(0xFFD60000),
-                        fontSize: 14,
+                        // Hapus const
+                        color: const Color(0xFFD60000),
+                        fontSize: 14.sp, // Tambah .sp
                       ),
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 28),
-
+              SizedBox(height: 28.h), // Hapus const, tambah .h
               // ================= 4. SECTION: RECENT ACHIEVEMENTS =================
-              const Text(
+              Text(
+                // Hapus const
                 'Recent Achievements',
                 style: TextStyle(
-                  color: Color(0xFF960606),
-                  fontSize: 20,
+                  // Hapus const
+                  color: const Color(0xFF960606),
+                  fontSize: 20.sp, // Tambah .sp
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Inter',
                 ),
               ),
-              const SizedBox(height: 12),
-              
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               // List Achievement Berjejer Vertikal
               _buildAchievementItem(
                 emoji: '🎯',
@@ -209,45 +240,50 @@ class StatisticsScreen extends StatelessWidget {
                 description: 'Completed 7 days in a row',
                 isUnlocked: true,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               _buildAchievementItem(
                 emoji: '⭐',
                 title: 'Quick Learner',
                 description: 'Completed 10 lessons',
                 isUnlocked: true,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               _buildAchievementItem(
                 emoji: '🏆',
                 title: 'Python Master',
-                description: 'Master all basic concepts', // Ditambahkan deskripsi agar seimbang
-                isUnlocked: false, // Menandakan prestasi belum terbuka (redup sesuai kode Figma kamu)
+                description: 'Master all basic concepts',
+                isUnlocked: false,
               ),
 
-              const SizedBox(height: 28),
-
+              SizedBox(height: 28.h), // Hapus const, tambah .h
               // ================= 5. SECTION: LEARNING INSIGHTS =================
-              const Text(
+              Text(
+                // Hapus const
                 'Learning Insights',
                 style: TextStyle(
-                  color: Color(0xFF1C398E),
-                  fontSize: 20,
+                  // Hapus const
+                  color: const Color(0xFF1C398E),
+                  fontSize: 20.sp, // Tambah .sp
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Inter',
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20.w), // Hapus const, tambah .w
                 decoration: BoxDecoration(
+                  // Hapus const
                   gradient: const LinearGradient(
+                    // Pindah const
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [Color(0xFFEFF6FF), Colors.white],
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0xFFFfee4e1)),
+                  borderRadius: BorderRadius.circular(20.r), // Tambah .r
+                  border: Border.all(
+                    color: const Color(0xFFFfee4e1),
+                  ), // Pindah const
                 ),
                 child: Column(
                   children: [
@@ -256,9 +292,15 @@ class StatisticsScreen extends StatelessWidget {
                       title: 'Best learning time',
                       subtitle: 'You practice most between 7-9 PM',
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 14.0),
-                      child: Divider(color: Color(0xFFFFEEEC), thickness: 1),
+                    Padding(
+                      // Hapus const
+                      padding: EdgeInsets.symmetric(
+                        vertical: 14.h,
+                      ), // Tambah .h
+                      child: const Divider(
+                        color: Color(0xFFFFEEEC),
+                        thickness: 1,
+                      ), // Pindah const
                     ),
                     _buildInsightRow(
                       icon: Icons.star_border,
@@ -283,44 +325,52 @@ class StatisticsScreen extends StatelessWidget {
     required bool isUnlocked,
   }) {
     return Opacity(
-      opacity: isUnlocked ? 1.0 : 0.4, // Jika belum unlocked, otomatis meredup (seperti Python Master di Figma kamu)
+      opacity: isUnlocked ? 1.0 : 0.4,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w), // Hapus const, tambah .w
         decoration: BoxDecoration(
+          // Hapus const
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r), // Tambah .r
           border: Border.all(color: const Color(0xFFFFEEEC)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.02),
               blurRadius: 3,
-              offset: const Offset(0, 1),
+              offset: Offset(0, 1.h), // Hapus const, tambah .h
             ),
           ],
         ),
         child: Row(
           children: [
-            Text(emoji, style: const TextStyle(fontSize: 40)),
-            const SizedBox(width: 16),
+            Text(
+              emoji,
+              style: TextStyle(fontSize: 40.sp),
+            ), // Hapus const, tambah .sp
+            SizedBox(width: 16.w), // Hapus const, tambah .w
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    // Hapus const
                     title,
-                    style: const TextStyle(
-                      color: Color(0xFF960606),
-                      fontSize: 16,
+                    style: TextStyle(
+                      // Hapus const
+                      color: const Color(0xFF960606),
+                      fontSize: 16.sp, // Tambah .sp
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h), // Hapus const, tambah .h
                   Text(
+                    // Hapus const
                     description,
-                    style: const TextStyle(
-                      color: Color(0xFFD60000),
-                      fontSize: 14,
+                    style: TextStyle(
+                      // Hapus const
+                      color: const Color(0xFFD60000),
+                      fontSize: 14.sp, // Tambah .sp
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -328,7 +378,11 @@ class StatisticsScreen extends StatelessWidget {
               ),
             ),
             if (isUnlocked)
-              const Icon(Icons.check_circle, color: Color(0xFFDBEAFE), size: 28),
+              Icon(
+                Icons.check_circle,
+                color: const Color(0xFFDBEAFE),
+                size: 28.sp,
+              ), // Hapus const, tambah .sp
           ],
         ),
       ),
@@ -344,33 +398,43 @@ class StatisticsScreen extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 44,
-          height: 44,
+          width: 44.w, // Tambah .w
+          height: 44
+              .w, // Gunakan .w agar kotak ikon tetap proporsional (persegi sempurna)
           decoration: BoxDecoration(
+            // Hapus const
             color: const Color(0xFFFEE4E1),
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(14.r), // Tambah .r
           ),
-          child: Icon(icon, color: const Color(0xFF960606), size: 22),
+          child: Icon(
+            icon,
+            color: const Color(0xFF960606),
+            size: 22.sp,
+          ), // Hapus const, tambah .sp
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: 16.w), // Hapus const, tambah .w
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                // Hapus const
                 title,
-                style: const TextStyle(
-                  color: Color(0xFF960606),
-                  fontSize: 16,
+                style: TextStyle(
+                  // Hapus const
+                  color: const Color(0xFF960606),
+                  fontSize: 16.sp, // Tambah .sp
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 2),
+              SizedBox(height: 2.h), // Hapus const, tambah .h
               Text(
+                // Hapus const
                 subtitle,
-                style: const TextStyle(
-                  color: Color(0xFFD60000),
-                  fontSize: 14,
+                style: TextStyle(
+                  // Hapus const
+                  color: const Color(0xFFD60000),
+                  fontSize: 14.sp, // Tambah .sp
                 ),
               ),
             ],

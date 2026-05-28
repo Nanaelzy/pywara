@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../splash/splash_screen.dart';
-import '../profile/settings_screen.dart'; 
+import '../profile/settings_screen.dart';
 import '../profile/statistics_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Tambahkan import ini
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,57 +16,65 @@ class ProfileScreen extends StatelessWidget {
       barrierDismissible: true,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ), // Tambah .r
           backgroundColor: Colors.white,
           child: Container(
-            width: 330, // Sedikit diperkecil agar pas dengan rasio layar HP umumnya
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            width: 330.w, // Tambah .w
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+              vertical: 24.h,
+            ), // Hapus const, tambah .w & .h
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Membuat tinggi dialog mengikuti isi kontennya (Proporsional)
+              mainAxisSize: MainAxisSize
+                  .min, // Membuat tinggi dialog mengikuti isi kontennya
               children: [
                 // 1. Icon Keluar (Wrapper Lingkaran)
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 50.w, // Tambah .w
+                  height: 50.w, // Pakai .w juga agar bulat sempurna
                   decoration: const BoxDecoration(
-                    color: Color(0x33D54E00), // Opacity warna oranye disesuaikan
+                    color: Color(0x33D54E00),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
+                    // Hapus const
                     Icons.logout_rounded,
-                    color: Color(0xFFD54E00),
-                    size: 24,
+                    color: const Color(0xFFD54E00),
+                    size: 24.sp, // Tambah .sp
                   ),
                 ),
-                const SizedBox(height: 16),
-
+                SizedBox(height: 16.h), // Hapus const, tambah .h
                 // 2. Judul Dialog
-                const Text(
+                Text(
+                  // Hapus const
                   'Leaving So Soon?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFFD54E00),
-                    fontSize: 16,
+                    // Hapus const
+                    color: const Color(0xFFD54E00),
+                    fontSize: 16.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 12),
-
+                SizedBox(height: 12.h), // Hapus const, tambah .h
                 // 3. Deskripsi / Isi Teks
-                const Text(
+                Text(
+                  // Hapus const
                   'Your progress and achievements are safely saved. You can pick up exactly where you left off as soon as you sign back in.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 13,
+                    // Hapus const
+                    color: const Color(0xFF960606),
+                    fontSize: 13.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
-                    height: 1.4, // Mengatur jarak antar baris teks agar rapi
+                    height: 1.4,
                   ),
                 ),
-                const SizedBox(height: 24),
-
+                SizedBox(height: 24.h), // Hapus const, tambah .h
                 // 4. Tombol: Yes, Log Out
                 InkWell(
                   onTap: () async {
@@ -74,46 +83,52 @@ class ProfileScreen extends StatelessWidget {
                     if (context.mounted) {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const SplashScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => const SplashScreen(),
+                        ),
                         (route) => false,
                       );
                     }
                   },
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r), // Tambah .r
                   child: Container(
-                    width: double.infinity, // Mengikuti lebar dialog secara proporsional
-                    height: 45,
+                    width: double.infinity,
+                    height: 45.h, // Tambah .h
                     decoration: BoxDecoration(
+                      // Hapus const
                       color: const Color(0xFFD54E00),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r), // Tambah .r
                     ),
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
+                      // Hapus const
                       'Yes, Log Out',
                       style: TextStyle(
+                        // Hapus const
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 14.sp, // Tambah .sp
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-
+                SizedBox(height: 8.h), // Hapus const, tambah .h
                 // 5. Tombol: Cancel
                 InkWell(
                   onTap: () => Navigator.pop(dialogContext),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r), // Tambah .r
                   child: Container(
                     width: double.infinity,
-                    height: 40,
+                    height: 40.h, // Tambah .h
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
+                      // Hapus const
                       'Cancel',
                       style: TextStyle(
-                        color: Color(0xFF5D5D5D),
-                        fontSize: 14,
+                        // Hapus const
+                        color: const Color(0xFF5D5D5D),
+                        fontSize: 14.sp, // Tambah .sp
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
@@ -135,73 +150,99 @@ class ProfileScreen extends StatelessWidget {
       barrierDismissible: false,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ), // Tambah .r
           backgroundColor: Colors.white,
           child: Container(
-            padding: const EdgeInsets.all(24),
-            width: 365,
+            padding: EdgeInsets.all(24.w), // Hapus const, tambah .w
+            width: 365.w, // Tambah .w
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 50.w, // Tambah .w
+                  height: 50.w, // Pakai .w agar bulat sempurna
                   decoration: BoxDecoration(
+                    // Hapus const
                     color: const Color(0x22960606),
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(25.r), // Tambah .r
                   ),
-                  child: const Icon(Icons.delete_forever, color: Color(0xFF960606), size: 28),
+                  child: Icon(
+                    Icons.delete_forever,
+                    color: const Color(0xFF960606),
+                    size: 28.sp,
+                  ), // Hapus const, tambah .sp
                 ),
-                const SizedBox(height: 16),
-                const Text(
+                SizedBox(height: 16.h), // Hapus const, tambah .h
+                Text(
+                  // Hapus const
                   'Delete Account Data?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 16,
+                    // Hapus const
+                    color: const Color(0xFF960606),
+                    fontSize: 16.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 12),
-                const Text(
+                SizedBox(height: 12.h), // Hapus const, tambah .h
+                Text(
+                  // Hapus const
                   'This will permanently delete all your progress, achievements, and account data. This action cannot be undone.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 14,
+                    // Hapus const
+                    color: const Color(0xFF960606),
+                    fontSize: 14.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h), // Hapus const, tambah .h
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(dialogContext); // Tutup dialog
-                    _deleteFirebaseAccount(context); // Jalankan fungsi hapus dengan konteks screen utama
+                    _deleteFirebaseAccount(context); // Jalankan fungsi hapus
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF960606),
-                    minimumSize: const Size(double.infinity, 48),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    minimumSize: Size(
+                      double.infinity,
+                      48.h,
+                    ), // Hapus const, tambah .h
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ), // Tambah .r
                     elevation: 0,
                   ),
-                  child: const Text(
+                  child: Text(
+                    // Hapus const
                     'Yes, Delete Everything',
-                    style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                    ), // Tambah .sp
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h), // Hapus const, tambah .h
                 TextButton(
                   onPressed: () => Navigator.pop(dialogContext),
                   style: TextButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 40),
+                    minimumSize: Size(
+                      double.infinity,
+                      40.h,
+                    ), // Hapus const, tambah .h
                   ),
-                  child: const Text(
+                  child: Text(
+                    // Hapus const
                     'Cancel',
                     style: TextStyle(
-                      color: Color(0xFF5D5D5D),
-                      fontSize: 14,
+                      // Hapus const
+                      color: const Color(0xFF5D5D5D),
+                      fontSize: 14.sp, // Tambah .sp
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -216,14 +257,13 @@ class ProfileScreen extends StatelessWidget {
 
   // 3. Fungsi Proses Penghapusan Akun di Firebase (Fixed Navigation)
   Future<void> _deleteFirebaseAccount(BuildContext context) async {
-  // Ditambahkan dua baris ini untuk mengunci context navigasi
-  final navigator = Navigator.of(context);
-  final scaffoldMessenger = ScaffoldMessenger.of(context);
-  
-  try {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      await user.delete();
+    final navigator = Navigator.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
 
         // 2. Tampilkan notifikasi sukses
         scaffoldMessenger.showSnackBar(
@@ -235,7 +275,7 @@ class ProfileScreen extends StatelessWidget {
 
         // 3. TENDANG KELUAR LANGSUNG KE SPLASH SCREEN
         navigator.pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const SplashScreen()), // <-- Mengarah ke SplashScreen
+          MaterialPageRoute(builder: (context) => const SplashScreen()),
           (route) => false,
         );
       }
@@ -243,7 +283,9 @@ class ProfileScreen extends StatelessWidget {
       if (e.code == 'requires-recent-login') {
         scaffoldMessenger.showSnackBar(
           const SnackBar(
-            content: Text('Untuk keamanan, silakan Logout lalu Login kembali sebelum menghapus akun.'),
+            content: Text(
+              'Untuk keamanan, silakan Logout lalu Login kembali sebelum menghapus akun.',
+            ),
             backgroundColor: Colors.orange,
           ),
         );
@@ -269,7 +311,10 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Profile',
-          style: TextStyle(color: Color(0xFF960606), fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Color(0xFF960606),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -289,7 +334,10 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 24.h,
+          ), // Hapus const, tambah .w & .h
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -301,52 +349,77 @@ class ProfileScreen extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       children: [
                         CircleAvatar(
-                          radius: 53,
+                          radius: 53.r, // Tambah .r
                           backgroundColor: const Color(0xFF960606),
                           child: Text(
-                            userName.isNotEmpty ? userName[0].toUpperCase() : 'H',
-                            style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+                            // Hapus const
+                            userName.isNotEmpty
+                                ? userName[0].toUpperCase()
+                                : 'H',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40.sp,
+                              fontWeight: FontWeight.bold,
+                            ), // Tambah .sp
                           ),
                         ),
                         CircleAvatar(
-                          radius: 16,
+                          radius: 16.r, // Tambah .r
                           backgroundColor: Colors.white,
                           child: IconButton(
                             padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.edit, size: 16, color: Color(0xFF960606)),
+                            icon: Icon(
+                              Icons.edit,
+                              size: 16.sp,
+                              color: const Color(0xFF960606),
+                            ), // Hapus const, tambah .sp
                             onPressed: () {},
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h), // Hapus const, tambah .h
                     Text(
+                      // Hapus const
                       userName,
-                      style: const TextStyle(color: Color(0xFF960606), fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: const Color(0xFF960606),
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ), // Tambah .sp
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h), // Hapus const, tambah .h
                     Text(
+                      // Hapus const
                       userEmail,
-                      style: const TextStyle(color: Color(0xFF960606), fontSize: 14, fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                        color: const Color(0xFF960606),
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                      ), // Tambah .sp
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
-
+              SizedBox(height: 32.h), // Hapus const, tambah .h
               // LEARNING PROGRESS
-              const Text(
+              Text(
+                // Hapus const
                 'Learning Progress',
-                style: TextStyle(color: Color(0xFF960606), fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: const Color(0xFF960606),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ), // Tambah .sp
               ),
-              const SizedBox(height: 12),
-              
+              SizedBox(height: 12.h), // Hapus const, tambah .h
+
               GridView.count(
                 crossAxisCount: 2,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
+                mainAxisSpacing: 16.h, // Tambah .h
+                crossAxisSpacing: 16.w, // Tambah .w
                 childAspectRatio: 1.3,
                 children: [
                   _buildProgressCard(
@@ -379,38 +452,64 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-
+              SizedBox(height: 20.h), // Hapus const, tambah .h
               // SECTION PROGRESS BAR
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16.w), // Hapus const, tambah .w
                 decoration: BoxDecoration(
+                  // Hapus const
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: const Color(0xFFE7E6E6), width: 1.5),
+                  borderRadius: BorderRadius.circular(15.r), // Tambah .r
+                  border: Border.all(
+                    color: const Color(0xFFE7E6E6),
+                    width: 1.5,
+                  ),
                   boxShadow: [
-                    BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2)),
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: Offset(0, 2.h),
+                    ), // Hapus const, tambah .h
                   ],
                 ),
                 child: Column(
                   children: [
-                    _buildSectionProgress('Section 1', 1.0, '100%', Colors.green),
-                    const SizedBox(height: 16),
-                    _buildSectionProgress('Section 2', 0.6, '60%', const Color(0xFF960606)),
-                    const SizedBox(height: 16),
-                    _buildSectionProgress('Section 3', 0.0, '0%', Colors.grey.withOpacity(0.5)),
+                    _buildSectionProgress(
+                      'Section 1',
+                      1.0,
+                      '100%',
+                      Colors.green,
+                    ),
+                    SizedBox(height: 16.h), // Hapus const, tambah .h
+                    _buildSectionProgress(
+                      'Section 2',
+                      0.6,
+                      '60%',
+                      const Color(0xFF960606),
+                    ),
+                    SizedBox(height: 16.h), // Hapus const, tambah .h
+                    _buildSectionProgress(
+                      'Section 3',
+                      0.0,
+                      '0%',
+                      Colors.grey.withOpacity(0.5),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
-
+              SizedBox(height: 32.h), // Hapus const, tambah .h
               // ACCOUNT SETTING LIST MENU
-              const Text(
+              Text(
+                // Hapus const
                 'Account Setting',
-                style: TextStyle(color: Color(0xFF960606), fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: const Color(0xFF960606),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ), // Tambah .sp
               ),
-              const SizedBox(height: 12),
-              
+              SizedBox(height: 12.h), // Hapus const, tambah .h
+
               _buildAccountTile(
                 icon: Icons.settings,
                 iconColor: const Color(0xFF960679),
@@ -419,11 +518,13 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SettingsScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsScreen(),
+                    ),
                   );
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               _buildAccountTile(
                 icon: Icons.bar_chart,
                 iconColor: const Color(0xFF5D8BCD),
@@ -432,26 +533,28 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const StatisticsScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const StatisticsScreen(),
+                    ),
                   );
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               _buildAccountTile(
                 icon: Icons.logout,
                 iconColor: const Color(0xFFD54E00),
                 bgColor: const Color(0x22D54E00),
                 title: 'Logout',
-                onTap: () => _showLogoutDialog(context), 
+                onTap: () => _showLogoutDialog(context),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               _buildAccountTile(
                 icon: Icons.delete_forever,
                 iconColor: const Color(0xFF960606),
                 bgColor: const Color(0x22960606),
                 title: 'Delete Account',
                 onTap: () {
-                  _showDeleteDialog(context); // Diaktifkan penuh & dijamin jalan!
+                  _showDeleteDialog(context);
                 },
               ),
             ],
@@ -470,10 +573,11 @@ class ProfileScreen extends StatelessWidget {
     required String value,
   }) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.w), // Hapus const, tambah .w
       decoration: BoxDecoration(
+        // Hapus const
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r), // Tambah .r
         border: Border.all(color: const Color(0xFFE7E6E6), width: 1.5),
       ),
       child: Column(
@@ -481,35 +585,73 @@ class ProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(10)),
-            child: Icon(icon, color: iconColor, size: 36),
+            padding: EdgeInsets.all(8.w), // Hapus const, tambah .w
+            decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: BorderRadius.circular(10.r),
+            ), // Tambah .r
+            child: Icon(
+              icon,
+              color: iconColor,
+              size: 36.sp,
+            ), // Hapus const, tambah .sp
           ),
-          const SizedBox(height: 12),
-          Text(title, style: const TextStyle(color: Color(0xFF960606), fontSize: 13, fontWeight: FontWeight.w500)),
-          const SizedBox(height: 2),
-          Text(value, style: const TextStyle(color: Color(0xFF960606), fontSize: 16, fontWeight: FontWeight.bold)),
+          SizedBox(height: 12.h), // Hapus const, tambah .h
+          Text(
+            title,
+            style: TextStyle(
+              color: const Color(0xFF960606),
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ), // Hapus const, tambah .sp
+          SizedBox(height: 2.h), // Hapus const, tambah .h
+          Text(
+            value,
+            style: TextStyle(
+              color: const Color(0xFF960606),
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ), // Hapus const, tambah .sp
         ],
       ),
     );
   }
 
-  Widget _buildSectionProgress(String sectionName, double progressValue, String percentage, Color progressColor) {
+  Widget _buildSectionProgress(
+    String sectionName,
+    double progressValue,
+    String percentage,
+    Color progressColor,
+  ) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(sectionName, style: const TextStyle(color: Color(0xFF960606), fontWeight: FontWeight.w500)),
-            Text(percentage, style: const TextStyle(color: Color(0xFF960606), fontWeight: FontWeight.w500)),
+            Text(
+              sectionName,
+              style: const TextStyle(
+                color: Color(0xFF960606),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Text(
+              percentage,
+              style: const TextStyle(
+                color: Color(0xFF960606),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
-        const SizedBox(height: 6),
+        SizedBox(height: 6.h), // Hapus const, tambah .h
         ClipRRect(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(13.r), // Tambah .r
           child: LinearProgressIndicator(
             value: progressValue,
-            minHeight: 10,
+            minHeight: 10.h, // Tambah .h
             backgroundColor: const Color(0x1C909090),
             valueColor: AlwaysStoppedAnimation<Color>(progressColor),
           ),
@@ -526,30 +668,50 @@ class ProfileScreen extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return InkWell(
-      onTap: onTap, // Aksi klik diaktifkan langsung lewat InkWell bawaan Flutter
-      borderRadius: BorderRadius.circular(15),
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(15.r), // Tambah .r
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+          vertical: 12.h,
+        ), // Hapus const, tambah .w & .h
         decoration: BoxDecoration(
+          // Hapus const
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r), // Tambah .r
           border: Border.all(color: const Color(0xFFE7E6E6), width: 1.5),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2)),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: Offset(0, 2.h),
+            ), // Hapus const, tambah .h
           ],
         ),
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(26)),
-              child: Icon(icon, color: iconColor, size: 24),
+              padding: EdgeInsets.all(8.w), // Hapus const, tambah .w
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(26.r),
+              ), // Tambah .r
+              child: Icon(
+                icon,
+                color: iconColor,
+                size: 24.sp,
+              ), // Hapus const, tambah .sp
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w), // Hapus const, tambah .w
             Expanded(
               child: Text(
+                // Hapus const
                 title,
-                style: TextStyle(color: iconColor, fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: iconColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ), // Tambah .sp
               ),
             ),
             Icon(Icons.chevron_right, color: iconColor.withOpacity(0.5)),

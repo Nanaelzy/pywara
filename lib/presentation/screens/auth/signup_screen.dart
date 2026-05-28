@@ -100,19 +100,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: 1.sw, // Menggunakan 1.sw (100% Screen Width)
+          height: 1.sh, // Menggunakan 1.sh (100% Screen Height)
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(color: Colors.black),
           child: Stack(
             children: [
               // 1. Background Gradient Merah
-              Positioned(
-                left: 0,
-                top: 0,
+              Positioned.fill( // Menggunakan Positioned.fill agar otomatis memenuhi Container
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment(1.00, 0.38),
@@ -122,13 +118,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
+              
               // 2. White Container (Form Area)
               Positioned(
                 left: 0,
+                right: 0, // Ditarik ke kanan
                 top: 281.h,
+                bottom: 0, // Ditarik sampai ke bawah layar
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 281,
                   decoration: ShapeDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment(0.50, -0.00),
@@ -152,6 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
+              
               // 3. Tab Bar (Login & Sign Up)
               Positioned(
                 left: 49.w,
@@ -160,7 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Container(
                   height: 51.h,
                   decoration: BoxDecoration(
-                    color: Color(0xFFE1E1E1),
+                    color: const Color(0xFFE1E1E1),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Row(
@@ -192,7 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xFF960606),
+                            color: const Color(0xFF960606),
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Center(
@@ -211,22 +209,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
+              
               // 4. Header Text
               Positioned(
                 left: 0,
                 right: 0,
-                top: 1.5.h, // Menurunkan sedikit agar tidak mentok ke atas layar
+                top: 15.h, // Dirapikan ke 15.h agar proporsional
                 child: Column(
                   children: [
                     // --- TEMPAT LOGO PNG ANDA ---
                     Image.asset(
                       'assets/images/logoutama.png',
-                      width: 190.w,   // Ukurannya diperkecil agar pas dengan area header
+                      width: 190.w,
                       height: 190.h,
                       fit: BoxFit.contain,
                     ),
                     Transform.translate(
-                      offset: const Offset(0, -5), // <-- Angka -25 ini akan menarik teks ke atas sebesar 25 piksel
+                      offset: Offset(0, -5.h), // Ditambahkan .h
                       child: Text(
                         'Hello!',
                         style: TextStyle(
@@ -246,7 +245,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
 
-              // 5. Input Fhields
+              // 5. Input Fields
               _buildInputField(
                 top: 415.h,
                 label: 'Email Address',
@@ -265,7 +264,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 top: 615.h,
                 label: 'Password',
                 hint: 'password',
-                isPassword: true, // Mengaktifkan mode password
+                isPassword: true, 
                 controller: _passwordController,
                 icon: Icons.lock_outline,
               ),
@@ -274,7 +273,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Positioned(
                 left: 27.w,
                 right: 27.w,
-                top: 745.h, // Sesuaikan koordinat top agar pas di layar
+                top: 745.h, 
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _signUp,
                   style: ElevatedButton.styleFrom(
@@ -315,18 +314,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              // 7. Text Bawah: Already have an account? Login (BISA DIPENCET)
+              
+              // 7. Text Bawah: Already have an account? Login
               Positioned(
                 left: 0,
                 right: 0,
-                bottom:
-                    30.h, // Menggunakan bottom agar adaptif saat keyboard muncul
+                bottom: 30.h, 
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Already have an account? ',
-                      style: TextStyle(color: Color(0xFF878181), fontSize: 14.sp),
+                      style: TextStyle(color: const Color(0xFF878181), fontSize: 14.sp),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -340,7 +339,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: Text(
                         'Login',
                         style: TextStyle(
-                          color: Color(0xFF960606),
+                          color: const Color(0xFF960606),
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),
@@ -356,7 +355,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  // Helper Widget untuk Input Field (Sudah ditambahkan fitur toggle visibility)
+  // Helper Widget untuk Input Field
   Widget _buildInputField({
     required double top,
     required String label,
@@ -368,7 +367,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Positioned(
       left: 45.w,
       right: 45.w,
-      top: top,
+      top: top, // Sudah membawa nilai .h dari atas
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -380,7 +379,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 8.h),
+          SizedBox(height: 8.h), // Ditambahkan .h
           Container(
             height: 62.h,
             decoration: BoxDecoration(
@@ -391,28 +390,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Center(
               child: TextField(
                 controller: controller,
-                // Menggunakan status state jika ini field password
                 obscureText: isPassword ? _obscurePassword : false,
                 style: TextStyle(color: Colors.black, fontSize: 16.sp),
                 decoration: InputDecoration(
                   hintText: hint,
                   hintStyle: TextStyle(
-                    color: Color(0xFFA6A6A6),
+                    color: const Color(0xFFA6A6A6),
                     fontSize: 16.sp,
                   ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 16.w,
-                    vertical: 14.h,
+                    vertical: 14.h, // Ditambahkan .h
                   ),
-
                   prefixIcon: Icon(
                     icon,
-                    color: const Color.fromARGB(255, 0, 0, 0), // Warnanya disamakan dengan tema merah Anda
-                    size: 22.sp,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    size: 22.sp, // Ditambahkan .sp
                   ),
-
-                  // Menambahkan ikon mata jika isPassword bernilai true
                   suffixIcon: isPassword
                       ? IconButton(
                           icon: Icon(
@@ -420,7 +415,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: const Color.fromARGB(255, 0, 0, 0),
-                            size: 22.sp,
+                            size: 22.sp, // Ditambahkan .sp
                           ),
                           onPressed: () {
                             setState(() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth/login_screen.dart'; // Sesuaikan dengan jalur file login kamu
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Tambahkan import ini
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -22,105 +23,120 @@ class _SettingsScreenState extends State<SettingsScreen> {
       barrierDismissible: true,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ), // Tambah .r
           backgroundColor: Colors.white,
           child: Container(
-            width: 330,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            width: 330.w, // Tambah .w
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+              vertical: 24.h,
+            ), // Hapus const, tambah .w & .h
             child: Column(
-              mainAxisSize: MainAxisSize.min, // Tinggi dialog fleksibel mengikuti konten
+              mainAxisSize:
+                  MainAxisSize.min, // Tinggi dialog fleksibel mengikuti konten
               children: [
                 // 1. Icon Keluar Resmi Flutter
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 50.w, // Tambah .w
+                  height: 50.w, // Menggunakan .w juga agar bulat sempurna
                   decoration: const BoxDecoration(
                     color: Color(0x33D54E00),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
+                    // Hapus const
                     Icons.logout_rounded,
-                    color: Color(0xFFD54E00),
-                    size: 24,
+                    color: const Color(0xFFD54E00),
+                    size: 24.sp, // Tambah .sp
                   ),
                 ),
-                const SizedBox(height: 16),
-
+                SizedBox(height: 16.h), // Hapus const, tambah .h
                 // 2. Judul Dialog
-                const Text(
+                Text(
+                  // Hapus const
                   'Leaving So Soon?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFFD54E00),
-                    fontSize: 16,
+                    // Hapus const
+                    color: const Color(0xFFD54E00),
+                    fontSize: 16.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 12),
-
+                SizedBox(height: 12.h), // Hapus const, tambah .h
                 // 3. Deskripsi Teks
-                const Text(
+                Text(
+                  // Hapus const
                   'Your progress and achievements are safely saved. You can pick up exactly where you left off as soon as you sign back in.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 13,
+                    // Hapus const
+                    color: const Color(0xFF960606),
+                    fontSize: 13.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                     height: 1.4,
                   ),
                 ),
-                const SizedBox(height: 24),
-
+                SizedBox(height: 24.h), // Hapus const, tambah .h
                 // 4. Tombol: Yes, Log Out (Mengarah ke LoginScreen)
                 InkWell(
                   onTap: () async {
                     Navigator.pop(dialogContext); // Tutup dialog
-                    await FirebaseAuth.instance.signOut(); // Keluar sesi Firebase
+                    await FirebaseAuth.instance
+                        .signOut(); // Keluar sesi Firebase
                     if (context.mounted) {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
                         (route) => false, // Bersihkan riwayat navigasi
                       );
                     }
                   },
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r), // Tambah .r
                   child: Container(
                     width: double.infinity,
-                    height: 45,
+                    height: 45.h, // Tambah .h
                     decoration: BoxDecoration(
+                      // Hapus const
                       color: const Color(0xFFD54E00),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r), // Tambah .r
                     ),
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
+                      // Hapus const
                       'Yes, Log Out',
                       style: TextStyle(
+                        // Hapus const
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 14.sp, // Tambah .sp
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-
+                SizedBox(height: 8.h), // Hapus const, tambah .h
                 // 5. Tombol: Cancel
                 InkWell(
                   onTap: () => Navigator.pop(dialogContext),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r), // Tambah .r
                   child: Container(
                     width: double.infinity,
-                    height: 40,
+                    height: 40.h, // Tambah .h
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
+                      // Hapus const
                       'Cancel',
                       style: TextStyle(
-                        color: Color(0xFF5D5D5D),
-                        fontSize: 14,
+                        // Hapus const
+                        color: const Color(0xFF5D5D5D),
+                        fontSize: 14.sp, // Tambah .sp
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
@@ -140,12 +156,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
+          // Hapus const
           'Setting',
           style: TextStyle(
-            color: Color(0xFF960606),
+            // Hapus const
+            color: const Color(0xFF960606),
             fontWeight: FontWeight.w700,
-            fontSize: 16,
+            fontSize: 16.sp, // Tambah .sp
             fontFamily: 'Inter',
           ),
         ),
@@ -169,21 +187,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: 24.h,
+          ), // Hapus const, tambah .w & .h
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ================= SECTION 1: ACCOUNT =================
-              const Text(
+              Text(
+                // Hapus const
                 'ACCOUNT',
                 style: TextStyle(
-                  color: Color(0xFF960606),
-                  fontSize: 14,
+                  // Hapus const
+                  color: const Color(0xFF960606),
+                  fontSize: 14.sp, // Tambah .sp
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               Container(
                 decoration: _buildBoxDecoration(),
                 child: Column(
@@ -204,20 +227,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
               ),
-              
-              const SizedBox(height: 28),
 
+              SizedBox(height: 28.h), // Hapus const, tambah .h
               // ================= SECTION 2: LEARNING =================
-              const Text(
+              Text(
+                // Hapus const
                 'LEARNING',
                 style: TextStyle(
-                  color: Color(0xFF59168B),
-                  fontSize: 14,
+                  // Hapus const
+                  color: const Color(0xFF59168B),
+                  fontSize: 14.sp, // Tambah .sp
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               Container(
                 decoration: _buildBoxDecoration(),
                 child: Column(
@@ -252,19 +276,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 28),
-
+              SizedBox(height: 28.h), // Hapus const, tambah .h
               // ================= SECTION 3: PREFERENCES =================
-              const Text(
+              Text(
+                // Hapus const
                 'PREFERENCES',
                 style: TextStyle(
-                  color: Color(0xFF59168B),
-                  fontSize: 14,
+                  // Hapus const
+                  color: const Color(0xFF59168B),
+                  fontSize: 14.sp, // Tambah .sp
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               Container(
                 decoration: _buildBoxDecoration(),
                 child: Column(
@@ -289,19 +314,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 28),
-
+              SizedBox(height: 28.h), // Hapus const, tambah .h
               // ================= SECTION 4: ABOUT =================
-              const Text(
+              Text(
+                // Hapus const
                 'ABOUT',
                 style: TextStyle(
-                  color: Color(0xFF59168B),
-                  fontSize: 14,
+                  // Hapus const
+                  color: const Color(0xFF59168B),
+                  fontSize: 14.sp, // Tambah .sp
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h), // Hapus const, tambah .h
               Container(
                 decoration: _buildBoxDecoration(),
                 child: Column(
@@ -330,19 +356,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 35),
-
+              SizedBox(height: 35.h), // Hapus const, tambah .h
               // ================= RED LOG OUT BUTTON =================
               InkWell(
                 onTap: () => _showLogoutDialog(context),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r), // Tambah .r
                 child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 16.h,
+                  ), // Hapus const, tambah .h
                   decoration: BoxDecoration(
+                    // Hapus const
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFFFC9C9), width: 2),
+                    borderRadius: BorderRadius.circular(16.r), // Tambah .r
+                    border: Border.all(
+                      color: const Color(0xFFFFC9C9),
+                      width: 2,
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
@@ -351,16 +382,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ],
                   ),
-                  child: const Row(
+                  child: Row(
+                    // Hapus const
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.logout, color: Color(0xFFE7000B), size: 20),
-                      SizedBox(width: 8),
+                      Icon(
+                        Icons.logout,
+                        color: const Color(0xFFE7000B),
+                        size: 20.sp,
+                      ), // Hapus const, tambah .sp
+                      SizedBox(width: 8.w), // Hapus const, tambah .w
                       Text(
+                        // Hapus const
                         'Log Out',
                         style: TextStyle(
-                          color: Color(0xFFE7000B),
-                          fontSize: 16,
+                          // Hapus const
+                          color: const Color(0xFFE7000B),
+                          fontSize: 16.sp, // Tambah .sp
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w600,
                         ),
@@ -370,16 +408,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 30),
-
+              SizedBox(height: 30.h), // Hapus const, tambah .h
               // ================= FOOTER TEXT =================
-              const Center(
+              Center(
+                // Hapus const
                 child: Text(
+                  // Hapus const
                   'Made with love for Python learners',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 14,
+                    // Hapus const
+                    color: const Color(0xFF960606),
+                    fontSize: 14.sp, // Tambah .sp
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                   ),
@@ -395,7 +435,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   BoxDecoration _buildBoxDecoration() {
     return BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r), // Tambah .r
       border: Border.all(color: const Color(0xFFF3E8FF), width: 1),
       boxShadow: [
         BoxShadow(
@@ -408,12 +448,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildDivider() {
-    return const Divider(
-      height: 1,
+    return Divider(
+      // Hapus const
+      height: 1.h, // Tambah .h
       thickness: 1,
-      color: Color(0xFFFAF5FF),
-      indent: 16,
-      endIndent: 16,
+      color: const Color(0xFFFAF5FF),
+      indent: 16.w, // Tambah .w
+      endIndent: 16.w, // Tambah .w
     );
   }
 
@@ -425,46 +466,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r), // Tambah .r
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.w), // Hapus const, tambah .w
         child: Row(
           children: [
             Container(
-              width: 40,
-              height: 40,
+              width: 40.w, // Tambah .w
+              height: 40.w, // Gunakan .w agar tetap bulat sempurna
               decoration: BoxDecoration(
+                // Hapus const
                 color: const Color(0xFFFAF5FF),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.r), // Tambah .r
               ),
-              child: Icon(icon, color: const Color(0xFF960606), size: 20),
+              child: Icon(
+                icon,
+                color: const Color(0xFF960606),
+                size: 20.sp,
+              ), // Hapus const, tambah .sp
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w), // Hapus const, tambah .w
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    // Hapus const
                     title,
-                    style: const TextStyle(
-                      color: Color(0xFF960606),
-                      fontSize: 16,
+                    style: TextStyle(
+                      // Hapus const
+                      color: const Color(0xFF960606),
+                      fontSize: 16.sp, // Tambah .sp
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  SizedBox(height: 2.h), // Hapus const, tambah .h
                   Text(
+                    // Hapus const
                     subtitle,
-                    style: const TextStyle(
-                      color: Color(0xFFD60000),
-                      fontSize: 14,
+                    style: TextStyle(
+                      // Hapus const
+                      color: const Color(0xFFD60000),
+                      fontSize: 14.sp, // Tambah .sp
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: Color(0xFF960606), size: 20),
+            Icon(
+              Icons.chevron_right,
+              color: const Color(0xFF960606),
+              size: 20.sp,
+            ), // Hapus const, tambah .sp
           ],
         ),
       ),
@@ -479,35 +533,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
     required ValueChanged<bool> onChanged,
   }) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.w), // Hapus const, tambah .w
       child: Row(
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 40.w, // Tambah .w
+            height: 40.w, // Gunakan .w agar tetap bulat sempurna
             decoration: BoxDecoration(
+              // Hapus const
               color: const Color(0xFFFAF5FF),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r), // Tambah .r
             ),
-            child: Icon(icon, color: const Color(0xFF960606), size: 20),
+            child: Icon(
+              icon,
+              color: const Color(0xFF960606),
+              size: 20.sp,
+            ), // Hapus const, tambah .sp
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16.w), // Hapus const, tambah .w
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  // Hapus const
                   title,
-                  style: const TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 16,
+                  style: TextStyle(
+                    // Hapus const
+                    color: const Color(0xFF960606),
+                    fontSize: 16.sp, // Tambah .sp
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 2),
+                SizedBox(height: 2.h), // Hapus const, tambah .h
                 Text(
+                  // Hapus const
                   subtitle,
-                  style: const TextStyle(color: Color(0xFFD60000), fontSize: 14),
+                  style: TextStyle(
+                    color: const Color(0xFFD60000),
+                    fontSize: 14.sp,
+                  ), // Tambah .sp
                 ),
               ],
             ),

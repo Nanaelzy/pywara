@@ -84,8 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: 1.sw, // Menggunakan 1.sw (100% Screen Width)
+          height: 1.sh, // Menggunakan 1.sh (100% Screen Height)
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(color: Colors.black),
           child: Form(
@@ -93,12 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Stack(
               children: [
                 // 1. Background Gradient
-                Positioned(
-                  left: 0,
-                  top: 0,
+                Positioned.fill(
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment(1.00, 0.38),
@@ -111,10 +107,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 // 2. Main White Container
                 Positioned(
                   left: 0,
+                  right: 0,
                   top: 281.h,
+                  bottom: 0, // Ditarik sampai ke bawah layar
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 281.h,
                     decoration: ShapeDecoration(
                       gradient: const LinearGradient(
                         begin: Alignment(0.50, -0.00),
@@ -142,23 +138,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 15
-                      .h, // Menurunkan sedikit agar tidak mentok ke atas layar
+                  top: 15.h,
                   child: Column(
                     children: [
                       // --- TEMPAT LOGO PNG ANDA ---
                       Image.asset(
                         'assets/images/logoutama.png',
-                        width: 190
-                            .w, // Ukurannya diperkecil agar pas dengan area header
+                        width: 190.w, 
                         height: 190.h,
                         fit: BoxFit.contain,
                       ),
                       Transform.translate(
-                        offset: Offset(
-                          0,
-                          -5.h,
-                        ), // <-- Angka ini menarik teks ke atas sebesar 5 piksel
+                        offset: Offset(0, -5.h), 
                         child: Text(
                           'Hello!',
                           style: TextStyle(
@@ -185,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(
                     height: 51.h,
                     decoration: BoxDecoration(
-                      color: Color(0xFFE1E1E1),
+                      color: const Color(0xFFE1E1E1),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Row(
@@ -193,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Color(0xFF960606),
+                              color: const Color(0xFF960606),
                               borderRadius: BorderRadius.circular(20.r),
                             ),
                             child: Center(
@@ -258,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Forgot PIN?',
                       style: TextStyle(
-                        color: Color(0xFF960606),
+                        color: const Color(0xFF960606),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
@@ -285,8 +276,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: Center(
                         child: _isLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
+                            ? SizedBox(
+                                width: 24.w,
+                                height: 24.h,
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 3,
+                                ),
                               )
                             : Text(
                                 'Login',
@@ -304,15 +300,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom: 30
-                      .h, // Menggunakan bottom agar fleksibel saat keyboard muncul
+                  bottom: 30.h, // Menggunakan bottom agar fleksibel saat keyboard muncul
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Don’t have an account? ',
                         style: TextStyle(
-                          color: Color(0xFF878181),
+                          color: const Color(0xFF878181),
                           fontSize: 14.sp,
                         ),
                       ),
@@ -328,7 +323,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: Color(0xFF960606),
+                            color: const Color(0xFF960606),
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),
@@ -354,7 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Positioned(
       left: 45.w,
       right: 45.w,
-      top: top.h,
+      top: top, // Tidak perlu top.h lagi karena sudah dikirim beserta .h dari pemanggil
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -378,7 +373,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(color: Color(0xFFA6A6A6), fontSize: 16.sp),
+              hintStyle: TextStyle(color: const Color(0xFFA6A6A6), fontSize: 16.sp),
               filled: true,
               fillColor: const Color(0xFFEAEAEA),
               contentPadding: EdgeInsets.symmetric(
@@ -386,19 +381,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 vertical: 18.h,
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(
                   color: Color(0xFFD0D0D0),
                   width: 2,
                 ),
               ),
-
               prefixIcon: Icon(
                 Icons.email_outlined,
-                color: Color.fromARGB(255, 0, 0, 0), // Warna merah tema PyWara
+                color: const Color.fromARGB(255, 0, 0, 0),
                 size: 22.sp,
               ),
-
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(
@@ -430,7 +423,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Positioned(
       left: 45.w,
       right: 45.w,
-      top: top,
+      top: top, // Tidak perlu top.h lagi karena sudah dikirim beserta .h dari pemanggil
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -454,20 +447,18 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(color: Color(0xFFA6A6A6), fontSize: 16.sp),
+              hintStyle: TextStyle(color: const Color(0xFFA6A6A6), fontSize: 16.sp),
               filled: true,
               fillColor: const Color(0xFFEAEAEA),
               contentPadding: EdgeInsets.symmetric(
-                horizontal: 16.sp,
+                horizontal: 16.w,
                 vertical: 18.h,
               ),
-
               prefixIcon: Icon(
                 Icons.lock_outline,
-                color: Color.fromARGB(255, 0, 0, 0), // Warna merah tema PyWara
+                color: const Color.fromARGB(255, 0, 0, 0),
                 size: 22.sp,
               ),
-
               suffixIcon: IconButton(
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_off : Icons.visibility,
