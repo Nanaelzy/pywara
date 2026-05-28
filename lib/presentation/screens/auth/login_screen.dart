@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'signup_screen.dart'; 
-import '../home/home_screen.dart'; // Import HomeScreen untuk navigasi setelah login berhasil
+import 'package:firebase_auth/firebase_auth.dart';
+import 'signup_screen.dart';
+import '../home/home_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
         Navigator.pushReplacement(
-          context, 
+          context,
           MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       }
@@ -110,20 +111,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 // 2. Main White Container
                 Positioned(
                   left: 0,
-                  top: 281,
+                  top: 281.h,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 281,
+                    height: MediaQuery.of(context).size.height - 281.h,
                     decoration: ShapeDecoration(
                       gradient: const LinearGradient(
                         begin: Alignment(0.50, -0.00),
                         end: Alignment(0.50, 1.00),
                         colors: [Colors.white, Color(0xFFFFEEEC)],
                       ),
-                      shape: const RoundedRectangleBorder(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(47),
-                          topRight: Radius.circular(47),
+                          topLeft: Radius.circular(47.r),
+                          topRight: Radius.circular(47.r),
                         ),
                       ),
                       shadows: const [
@@ -141,61 +142,67 @@ class _LoginScreenState extends State<LoginScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: 15, // Menurunkan sedikit agar tidak mentok ke atas layar
+                  top: 15
+                      .h, // Menurunkan sedikit agar tidak mentok ke atas layar
                   child: Column(
                     children: [
                       // --- TEMPAT LOGO PNG ANDA ---
                       Image.asset(
                         'assets/images/logoutama.png',
-                        width: 190,   // Ukurannya diperkecil agar pas dengan area header
-                        height: 190,
+                        width: 190
+                            .w, // Ukurannya diperkecil agar pas dengan area header
+                        height: 190.h,
                         fit: BoxFit.contain,
                       ),
                       Transform.translate(
-                        offset: const Offset(0, -5), // <-- Angka ini menarik teks ke atas sebesar 5 piksel
-                        child: const Text(
+                        offset: Offset(
+                          0,
+                          -5.h,
+                        ), // <-- Angka ini menarik teks ke atas sebesar 5 piksel
+                        child: Text(
                           'Hello!',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
                       const SizedBox(height: 0),
-                      const Text(
+                      Text(
                         "Let's explore together!",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        style: TextStyle(color: Colors.white, fontSize: 15.sp),
                       ),
                     ],
                   ),
                 ),
                 // 4. Tab Selector (Login Active)
                 Positioned(
-                  left: 49,
-                  right: 49,
-                  top: 313,
+                  left: 49.w,
+                  right: 49.w,
+                  top: 313.h,
                   child: Container(
-                    height: 51,
+                    height: 51.h,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE1E1E1),
-                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0xFFE1E1E1),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Row(
                       children: [
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                              color: const Color(0xFF960606),
-                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xFF960606),
+                              borderRadius: BorderRadius.circular(20.r),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 "Login",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
                                 ),
                               ),
                             ),
@@ -211,12 +218,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               );
                             },
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 "Sign Up",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
                                 ),
                               ),
                             ),
@@ -229,29 +237,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // 5. Form Inputs (Menggunakan TextFormField asli)
                 _buildEmailField(
-                  top: 410,
+                  top: 410.h,
                   label: 'Email Address',
                   hint: 'your.email@gmail.com',
                 ),
                 _buildPasswordField(
-                  top: 525,
+                  top: 525.h,
                   label: 'Enter Password',
                   hint: 'password',
                 ),
 
                 // 6. Forgot PIN
                 Positioned(
-                  right: 50,
-                  top: 640,
+                  right: 50.w,
+                  top: 640.h,
                   child: GestureDetector(
                     onTap: () {
                       // Tambahkan aksi lupa password di sini
                     },
-                    child: const Text(
+                    child: Text(
                       'Forgot PIN?',
                       style: TextStyle(
                         color: Color(0xFF960606),
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -260,19 +268,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 // 7. Login Button
                 Positioned(
-                  left: 27,
-                  right: 27,
-                  top: 690,
+                  left: 27.w,
+                  right: 27.w,
+                  top: 690.h,
                   child: GestureDetector(
                     onTap: _isLoading ? null : _loginWithFirebase,
                     child: Container(
-                      height: 62,
+                      height: 62.h,
                       decoration: ShapeDecoration(
                         gradient: const LinearGradient(
                           colors: [Color(0xFFD60000), Color(0xFF960505)],
                         ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),
                       child: Center(
@@ -280,11 +288,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : const Text(
+                            : Text(
                                 'Login',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -296,16 +304,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom:
-                      30, // Menggunakan bottom agar fleksibel saat keyboard muncul
+                  bottom: 30
+                      .h, // Menggunakan bottom agar fleksibel saat keyboard muncul
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'Don’t have an account? ',
                         style: TextStyle(
                           color: Color(0xFF878181),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                       GestureDetector(
@@ -317,11 +325,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           'Sign Up',
                           style: TextStyle(
                             color: Color(0xFF960606),
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -344,21 +352,21 @@ class _LoginScreenState extends State<LoginScreen> {
     required String hint,
   }) {
     return Positioned(
-      left: 45,
-      right: 45,
-      top: top,
+      left: 45.w,
+      right: 45.w,
+      top: top.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 12,
+            style: TextStyle(
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
@@ -370,15 +378,12 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(
-                color: Color(0xFFA6A6A6),
-                fontSize: 16,
-              ),
+              hintStyle: TextStyle(color: Color(0xFFA6A6A6), fontSize: 16.sp),
               filled: true,
               fillColor: const Color(0xFFEAEAEA),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 18,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 18.h,
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
@@ -388,25 +393,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.email_outlined,
                 color: Color.fromARGB(255, 0, 0, 0), // Warna merah tema PyWara
-                size: 22,
+                size: 22.sp,
               ),
 
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(
                   color: Color(0xFF960606),
                   width: 2,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(color: Colors.red, width: 2),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(color: Colors.red, width: 2),
               ),
             ),
@@ -423,21 +428,21 @@ class _LoginScreenState extends State<LoginScreen> {
     required String hint,
   }) {
     return Positioned(
-      left: 45,
-      right: 45,
+      left: 45.w,
+      right: 45.w,
       top: top,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 12,
+            style: TextStyle(
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           TextFormField(
             controller: _passwordController,
             obscureText: _obscurePassword,
@@ -449,27 +454,25 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(
-                color: Color(0xFFA6A6A6),
-                fontSize: 16,
-              ),
+              hintStyle: TextStyle(color: Color(0xFFA6A6A6), fontSize: 16.sp),
               filled: true,
               fillColor: const Color(0xFFEAEAEA),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 18,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16.sp,
+                vertical: 18.h,
               ),
 
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.lock_outline,
                 color: Color.fromARGB(255, 0, 0, 0), // Warna merah tema PyWara
-                size: 22,
+                size: 22.sp,
               ),
 
               suffixIcon: IconButton(
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_off : Icons.visibility,
                   color: const Color.fromARGB(255, 0, 0, 0),
+                  size: 22.sp,
                 ),
                 onPressed: () {
                   setState(() {
@@ -478,25 +481,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(
                   color: Color(0xFFD0D0D0),
                   width: 2,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(
                   color: Color(0xFF960606),
                   width: 2,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(color: Colors.red, width: 2),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16.r),
                 borderSide: const BorderSide(color: Colors.red, width: 2),
               ),
             ),

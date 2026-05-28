@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../profile/profile_screen.dart';
-import '../profile/statistics_screen.dart'; 
+import '../profile/statistics_screen.dart';
 import '../task/pages/multiple_choice_screen.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HoverFloatingWidget extends StatefulWidget {
   final Widget child;
@@ -15,7 +16,8 @@ class HoverFloatingWidget extends StatefulWidget {
   State<HoverFloatingWidget> createState() => _HoverFloatingWidgetState();
 }
 
-class _HoverFloatingWidgetState extends State<HoverFloatingWidget> with SingleTickerProviderStateMixin {
+class _HoverFloatingWidgetState extends State<HoverFloatingWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   bool _isHovered = false;
@@ -31,9 +33,10 @@ class _HoverFloatingWidgetState extends State<HoverFloatingWidget> with SingleTi
       duration: const Duration(milliseconds: 1500),
     );
 
-    _animation = Tween<double>(begin: -6.0, end: 6.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: -6.0,
+      end: 6.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -116,25 +119,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // Kita pakai background putih bawaan dulu supaya kelihatan kalau ada error layout
-      backgroundColor: Colors.white, 
+      backgroundColor: Colors.white,
       body: SizedBox.expand(
         child: SizedBox.expand(
           child: Stack(
             children: [
-              
               Positioned(
-                left: -35, // Geser sedikit ke kiri agar terpotong tepi layar
-                top: -20,  // Geser sedikit ke atas agar menembus status bar
+                left: -35.w, // Geser sedikit ke kiri agar terpotong tepi layar
+                top: -20.h, // Geser sedikit ke atas agar menembus status bar
                 child: Container(
-                  width: 141,
-                  height: 141,
+                  width: 141.w,
+                  height: 141.w,
                   decoration: const ShapeDecoration(
                     color: Color(0xFF960606),
                     shape: OvalBorder(),
                   ),
                 ),
               ),
-              
+
               // 1. KONTEN TENGAH YANG BISA DI-SCROLL
               Positioned.fill(
                 child: SingleChildScrollView(
@@ -142,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                   child: Container(
                     // Paksa tinggi container minimal 1850 sesuai desain Figma kamu agar bisa di-scroll
                     width: double.infinity,
-                    height: 1850, 
+                    height: 1850,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment(0.5, 0.0),
@@ -153,7 +155,6 @@ class HomeScreen extends StatelessWidget {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-
                         // =========================================================
                         // UNIT 1 SECTION
                         // =========================================================
@@ -162,9 +163,15 @@ class HomeScreen extends StatelessWidget {
                           title: 'Unit 1',
                           subtitle: 'Get started with Python basics',
                         ),
-                        
+
                         // Level Node - Unit 1 (Posisi presisi dari Figma kamu)
-                        _buildLevelNode(context: context, left: 165, top: 279, label: 'START', isRedText: true),
+                        _buildLevelNode(
+                          context: context,
+                          left: 165,
+                          top: 279,
+                          label: 'START',
+                          isRedText: true,
+                        ),
                         _buildLevelNode(context: context, left: 249, top: 376),
                         _buildLevelNode(context: context, left: 140, top: 455),
                         _buildLevelNode(context: context, left: 72, top: 593),
@@ -174,11 +181,11 @@ class HomeScreen extends StatelessWidget {
                         // UNIT 2 SECTION
                         // =========================================================
                         _buildUnitHeader(
-                          top: 840, 
+                          top: 840,
                           title: 'Unit 2',
                           subtitle: 'Learn control flow',
                         ),
-                        
+
                         // Level Node - Unit 2
                         _buildLevelNode(context: context, left: 249, top: 999),
                         _buildLevelNode(context: context, left: 100, top: 1071),
@@ -204,15 +211,20 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(height: 8),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(3, (index) => Container(
-                                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                                  width: 10.57,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFB7B7B7),
-                                    borderRadius: BorderRadius.circular(20),
+                                children: List.generate(
+                                  3,
+                                  (index) => Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 3,
+                                    ),
+                                    width: 10.57,
+                                    height: 10,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFB7B7B7),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
                                   ),
-                                )),
+                                ),
                               ),
                             ],
                           ),
@@ -232,7 +244,8 @@ class HomeScreen extends StatelessWidget {
                   height: 80,
                   color: Colors.white, // Background bar putih
                   child: Stack(
-                    clipBehavior: Clip.none, // Agar lingkaran bisa keluar dari batas 80px
+                    clipBehavior:
+                        Clip.none, // Agar lingkaran bisa keluar dari batas 80px
                     children: [
                       // =========================================================
                       // LINGKARAN MERAH (Sekarang ada di layer Top Bar)
@@ -249,13 +262,16 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      
+
                       // =========================================================
                       // KONTEN PROFILE & ANGKA STATISTIK
                       // =========================================================
                       Padding(
                         // Padding dipindah ke sini agar lingkaran merah tidak ikut ter-padding
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -265,18 +281,30 @@ class HomeScreen extends StatelessWidget {
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/pylogo.png"), 
+                                  image: AssetImage("assets/images/pylogo.png"),
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                             Row(
                               children: [
-                                _buildTopStatItem(Icons.local_fire_department, '40', const Color(0xFFFF9600)),
+                                _buildTopStatItem(
+                                  Icons.local_fire_department,
+                                  '40',
+                                  const Color(0xFFFF9600),
+                                ),
                                 const SizedBox(width: 16),
-                                _buildTopStatItem(Icons.diamond, '103', const Color(0xFF1CB0F6)),
+                                _buildTopStatItem(
+                                  Icons.diamond,
+                                  '103',
+                                  const Color(0xFF1CB0F6),
+                                ),
                                 const SizedBox(width: 16),
-                                _buildTopStatItem(Icons.favorite, '5', const Color(0xFFFF4B4B)),
+                                _buildTopStatItem(
+                                  Icons.favorite,
+                                  '5',
+                                  const Color(0xFFFF4B4B),
+                                ),
                               ],
                             ),
                           ],
@@ -291,26 +319,44 @@ class HomeScreen extends StatelessWidget {
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: 0, //  MENGGUNAKAN BOTTOM: Mengunci menu agar selalu menempel di bagian bawah layar
+                bottom:
+                    0, //  MENGGUNAKAN BOTTOM: Mengunci menu agar selalu menempel di bagian bawah layar
                 child: Container(
                   height: 75, // Menyesuaikan tinggi bar menu
                   decoration: const BoxDecoration(
-                    color: Color(0xFF8A1212), // Warna merah gelap sesuai desainmu
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    color: Color(
+                      0xFF8A1212,
+                    ), // Warna merah gelap sesuai desainmu
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Membagi jarak antar icon secara otomatis
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceEvenly, // Membagi jarak antar icon secara otomatis
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.home, color: Colors.white, size: 28),
+                        icon: const Icon(
+                          Icons.home,
+                          color: Colors.white,
+                          size: 28,
+                        ),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(Icons.military_tech_outlined, color: Colors.white70, size: 28),
+                        icon: const Icon(
+                          Icons.military_tech_outlined,
+                          color: Colors.white70,
+                          size: 28,
+                        ),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(Icons.bar_chart_rounded, color: Colors.white70, size: 28),
+                        icon: const Icon(
+                          Icons.bar_chart_rounded,
+                          color: Colors.white70,
+                          size: 28,
+                        ),
                         onPressed: () {
                           // TAMBAHKAN NAVIGASI DI SINI:
                           Navigator.push(
@@ -322,16 +368,24 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                       IconButton(
-                        icon: const Icon(Icons.bookmark_border_rounded, color: Colors.white70, size: 28),
+                        icon: const Icon(
+                          Icons.bookmark_border_rounded,
+                          color: Colors.white70,
+                          size: 28,
+                        ),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(Icons.person, color: Colors.white70, size: 28),
+                        icon: const Icon(
+                          Icons.person,
+                          color: Colors.white70,
+                          size: 28,
+                        ),
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProfileScreen(), 
+                              builder: (context) => const ProfileScreen(),
                             ),
                           );
                         },
@@ -340,7 +394,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
             ],
           ),
         ),
@@ -349,7 +402,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   // Helper Widget: Banner Unit
-  Widget _buildUnitHeader({required double top, required String title, required String subtitle}) {
+  Widget _buildUnitHeader({
+    required double top,
+    required String title,
+    required String subtitle,
+  }) {
     return Positioned(
       left: 16,
       right: 16,
@@ -371,7 +428,7 @@ class HomeScreen extends StatelessWidget {
               color: Color(0x19000000),
               blurRadius: 15,
               offset: Offset(0, 10),
-            )
+            ),
           ],
         ),
         child: Row(
@@ -381,9 +438,23 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(title, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900)),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(subtitle, style: const TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w600)),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -397,9 +468,9 @@ class HomeScreen extends StatelessWidget {
   // Helper Widget: Lingkaran Node Level
   Widget _buildLevelNode({
     required BuildContext context,
-    required double left, 
-    required double top, 
-    String? label, 
+    required double left,
+    required double top,
+    String? label,
     bool isRedText = false,
     bool isDone = false,
   }) {
@@ -415,7 +486,7 @@ class HomeScreen extends StatelessWidget {
           height: 71,
           fit: BoxFit.contain,
         ),
-        
+
         // 2. Balon Teks "START" (Hanya muncul jika label tidak null)
         if (label != null)
           Positioned(
@@ -431,8 +502,8 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.black12,
                     blurRadius: 4,
                     offset: Offset(0, 2),
-                  )
-                ]
+                  ),
+                ],
               ),
               child: Text(
                 label,
@@ -454,111 +525,118 @@ class HomeScreen extends StatelessWidget {
         width: 71,
         child: HoverFloatingWidget(
           onTap: () async {
-          // Menampilkan Pop-Up dari bawah
-          await showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent, // Dibuat transparan agar radius lengkungmu terlihat
-            builder: (BuildContext context) {
-              return SizedBox(
-                width: 412,
-                height: 227,
-                child: Stack(
-                  children: [
-                    // Background Merah Gelap (belakang)
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      right: 0, // Ditambahkan right: 0 agar menyesuaikan lebar layar
-                      child: Container(
-                        height: 219,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFF8A1212),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Background Merah Terang (depan)
-                    Positioned(
-                      left: 0,
-                      top: 8,
-                      right: 0, 
-                      child: Container(
-                        height: 219,
-                        decoration: const ShapeDecoration(
-                          color: Color(0xFFD85959),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Judul Unit / Task
-                    const Positioned(
-                      left: 0,
-                      right: 0,
-                      top: 46,
-                      child: Text(
-                        'python syntax',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xFFFDFFFC),
-                          fontSize: 32,
-                          fontFamily: 'Ubuntu',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    // Tombol Start (Background Putih + Teks digabung)
-                    Positioned(
-                      left: 37,
-                      right: 37, // Menggunakan left & right agar posisinya seimbang di tengah
-                      top: 122,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context); // 1. Tutup pop-up dari bawah
-                          Navigator.push(          // 2. Pindah ke halaman Multiple Choice
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TaskScreen(), 
-                            ),
-                          );
-                        },
+            // Menampilkan Pop-Up dari bawah
+            await showModalBottomSheet(
+              context: context,
+              backgroundColor: Colors
+                  .transparent, // Dibuat transparan agar radius lengkungmu terlihat
+              builder: (BuildContext context) {
+                return SizedBox(
+                  width: 412,
+                  height: 227,
+                  child: Stack(
+                    children: [
+                      // Background Merah Gelap (belakang)
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        right:
+                            0, // Ditambahkan right: 0 agar menyesuaikan lebar layar
                         child: Container(
-                          height: 74,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFFFFCFB),
+                          height: 219,
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFF8A1212),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                          ),
-                          alignment: Alignment.center, // Memastikan teks ada tepat di tengah tombol
-                          child: const Text(
-                            'Start  +20 xp',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF956B0B),
-                              fontSize: 20,
-                              fontFamily: 'B612 Mono',
-                              fontWeight: FontWeight.w400,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                      // Background Merah Terang (depan)
+                      Positioned(
+                        left: 0,
+                        top: 8,
+                        right: 0,
+                        child: Container(
+                          height: 219,
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFFD85959),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Judul Unit / Task
+                      const Positioned(
+                        left: 0,
+                        right: 0,
+                        top: 46,
+                        child: Text(
+                          'python syntax',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFFFDFFFC),
+                            fontSize: 32,
+                            fontFamily: 'Ubuntu',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      // Tombol Start (Background Putih + Teks digabung)
+                      Positioned(
+                        left: 37,
+                        right:
+                            37, // Menggunakan left & right agar posisinya seimbang di tengah
+                        top: 122,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(
+                              context,
+                            ); // 1. Tutup pop-up dari bawah
+                            Navigator.push(
+                              // 2. Pindah ke halaman Multiple Choice
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TaskScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 74,
+                            decoration: ShapeDecoration(
+                              color: const Color(0xFFFFFCFB),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                            ),
+                            alignment: Alignment
+                                .center, // Memastikan teks ada tepat di tengah tombol
+                            child: const Text(
+                              'Start  +20 xp',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF956B0B),
+                                fontSize: 20,
+                                fontFamily: 'B612 Mono',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
           child: nodeContent,
         ),
       ),
@@ -574,7 +652,11 @@ class HomeScreen extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           value,
-          style: TextStyle(color: color, fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: color,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );

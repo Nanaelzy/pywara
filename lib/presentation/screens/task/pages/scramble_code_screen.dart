@@ -12,7 +12,7 @@ class ScrambleCodeScreen extends StatefulWidget {
 class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
   // --- STATE ---
   List<String> availableWords = ['typ', 'type', 'print', 'echo'];
-  List<String?> filledSlots = [null, null]; 
+  List<String?> filledSlots = [null, null];
   bool hasCheckedAnswer = false;
   final List<String> correctAnswers = ['print', 'type'];
 
@@ -45,9 +45,9 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
   void _showFinishBottomSheet() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent, 
-      isDismissible: false, 
-      enableDrag: false,    
+      backgroundColor: Colors.transparent,
+      isDismissible: false,
+      enableDrag: false,
       builder: (BuildContext context) {
         return SizedBox(
           height: 363.h,
@@ -84,7 +84,7 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                   ),
                 ),
               ),
-               Positioned(
+              Positioned(
                 left: 20.w,
                 right: 20.w,
                 top: 77.h,
@@ -107,8 +107,10 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pushReplacement(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
                     );
                   },
                   child: Container(
@@ -118,7 +120,11 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                       color: const Color(0xFFFFFCFB),
                       borderRadius: BorderRadius.circular(40.r),
                       boxShadow: const [
-                        BoxShadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2))
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
                       ],
                     ),
                     child: Text(
@@ -159,16 +165,13 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
           ),
           content: Text(
             'Are you sure you want to quit? All your progress in this lesson will be lost.',
-            style: TextStyle(
-              fontFamily: 'Nunito',
-              fontSize: 16.sp,
-            ),
+            style: TextStyle(fontFamily: 'Nunito', fontSize: 16.sp),
           ),
           actions: [
             // Tombol Cancel (Batal keluar)
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Hanya menutup dialog popup 
+                Navigator.pop(context); // Hanya menutup dialog popup
               },
               child: Text(
                 'Cancel',
@@ -178,16 +181,16 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
             // Tombol Quit (Jadi keluar)
             TextButton(
               onPressed: () {
-                    Navigator.pushReplacement(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
-                  },
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              },
               child: Text(
                 'Quit',
                 style: TextStyle(
-                  color: Color(0xFFD60000), 
-                  fontSize: 16.sp, 
+                  color: Color(0xFFD60000),
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -198,7 +201,6 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
     );
   }
 
-  
   void _showHintDialog() {
     showDialog(
       context: context,
@@ -218,16 +220,24 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
             child: Stack(
               children: [
                 Positioned(
-                  left: 2.w, top: 37.h, right: 21.w,
+                  left: 2.w,
+                  top: 37.h,
+                  right: 21.w,
                   child: Text(
                     'which one do you want AI to do to this question?',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 15.sp, fontFamily: 'Ubuntu'),
+                    style: TextStyle(
+                      color: Color(0xFFA30D0D),
+                      fontSize: 15.sp,
+                      fontFamily: 'Ubuntu',
+                    ),
                   ),
                 ),
                 // Tombol Penjelasan
                 Positioned(
-                  left: 21.w, top: 96.h, right: 21.w,
+                  left: 21.w,
+                  top: 96.h,
+                  right: 21.w,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pop(context); // Tutup dialog
@@ -237,14 +247,27 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                     child: Container(
                       height: 80.h,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(1.3.r)),
-                      child: Text('give me an explanation on how the\nsyntax on this question works', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15.sp, fontFamily: 'Ubuntu')),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF824141),
+                        borderRadius: BorderRadius.circular(1.3.r),
+                      ),
+                      child: Text(
+                        'give me an explanation on how the\nsyntax on this question works',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.sp,
+                          fontFamily: 'Ubuntu',
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 // Tombol Jawaban
                 Positioned(
-                  left: 21.w, top: 199.h, right: 21.w,
+                  left: 21.w,
+                  top: 199.h,
+                  right: 21.w,
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pop(context); // Tutup dialog
@@ -253,8 +276,19 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                     child: Container(
                       height: 80.h,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13.r)),
-                      child: Text('give me the answer of this question', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 15.sp, fontFamily: 'Ubuntu')),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF824141),
+                        borderRadius: BorderRadius.circular(13.r),
+                      ),
+                      child: Text(
+                        'give me the answer of this question',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.sp,
+                          fontFamily: 'Ubuntu',
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -287,47 +321,81 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
               children: [
                 // Header (Tombol Jawaban)
                 Positioned(
-                  left: 19.w, top: 36.h, right: 19.w,
+                  left: 19.w,
+                  top: 36.h,
+                  right: 19.w,
                   child: Container(
                     width: 317.w,
                     height: 80.h,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color: const Color(0xFF824141), borderRadius: BorderRadius.circular(13.r)),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF824141),
+                      borderRadius: BorderRadius.circular(13.r),
+                    ),
                     child: Text(
-                      'give me the answer of this question', 
-                      textAlign: TextAlign.center, 
-                      style: TextStyle(color: Colors.white, fontSize: 15.sp, fontFamily: 'Ubuntu')
+                      'give me the answer of this question',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                        fontFamily: 'Ubuntu',
+                      ),
                     ),
                   ),
                 ),
                 // Isi Jawaban (Text.rich)
                 Positioned(
-                  left: 26.w, top: 130.h, right: 26.w,
+                  left: 26.w,
+                  top: 130.h,
+                  right: 26.w,
                   child: Text.rich(
                     TextSpan(
                       children: [
-                         TextSpan(
+                        TextSpan(
                           text: 'The correct sequence is ',
-                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded'),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontFamily: 'Tsukimi Rounded',
+                          ),
                         ),
-                         TextSpan(
+                        TextSpan(
                           text: 'print',
-                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontFamily: 'Tsukimi Rounded',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                         TextSpan(
+                        TextSpan(
                           text: ' and ',
-                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded'),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontFamily: 'Tsukimi Rounded',
+                          ),
                         ),
-                         TextSpan(
+                        TextSpan(
                           text: 'type.\n',
-                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded', fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontFamily: 'Tsukimi Rounded',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                         TextSpan(
-                          text: 'The full line should be print(type(myvar)).\n'
-                                'In Python, type() identifies the data\n'
-                                'category of a variable, while print()\n'
-                                'displays that information on the screen.',
-                          style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: 'Tsukimi Rounded'),
+                        TextSpan(
+                          text:
+                              'The full line should be print(type(myvar)).\n'
+                              'In Python, type() identifies the data\n'
+                              'category of a variable, while print()\n'
+                              'displays that information on the screen.',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontFamily: 'Tsukimi Rounded',
+                          ),
                         ),
                       ],
                     ),
@@ -360,15 +428,19 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                 ),
               ),
             ),
-            
+
             // --- 2. Top Bar Shadow ---
             Container(
               width: double.infinity,
-              height: 70.h, 
+              height: 70.h,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
-                  BoxShadow(color: Color(0x3F000000), blurRadius: 4, offset: Offset(0, 4))
+                  BoxShadow(
+                    color: Color(0x3F000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                  ),
                 ],
               ),
             ),
@@ -405,10 +477,10 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
               ),
             ),
             Positioned(
-              left: 70.w, 
+              left: 70.w,
               top: 30.h,
               child: Container(
-                width: 290.w, 
+                width: 290.w,
                 height: 10.h,
                 decoration: BoxDecoration(
                   color: const Color(0xFF960606),
@@ -416,9 +488,9 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                 ),
               ),
             ),
-            
+
             // --- 5. Teks Indikator Soal ---
-             Positioned(
+            Positioned(
               right: 18.w,
               top: 24.h,
               child: Text(
@@ -434,20 +506,20 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
 
             // --- 6. Box Pertanyaan ---
             Positioned(
-              left: 26,
-              top: 100,
-              right: 26,
+              left: 26.w,
+              top: 100.h,
+              right: 26.w,
               child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20.w),
                 decoration: BoxDecoration(
                   color: const Color(0x99DDDDDD),
                   borderRadius: BorderRadius.circular(13.r),
                 ),
-                child: const Text(
+                child: Text(
                   'Select the correct functions to print the data type of a variable:',
                   style: TextStyle(
                     color: Color(0xFFA30D0D),
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontFamily: 'Ubuntu',
                     fontWeight: FontWeight.w600,
                   ),
@@ -457,21 +529,31 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
 
             // --- 7. AREA SCRAMBLE TARGET ---
             Positioned(
-              left: 26,
-              right: 26,
-              top: 250,
+              left: 26.w,
+              right: 26.w,
+              top: 250.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildSlot(0), 
-                  const Text(
+                  _buildSlot(0),
+                  Text(
                     ' ( ',
-                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 23, fontFamily: 'Ubuntu', fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Color(0xFFA30D0D),
+                      fontSize: 23.sp,
+                      fontFamily: 'Ubuntu',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  _buildSlot(1), 
-                  const Text(
+                  _buildSlot(1),
+                  Text(
                     ' (myvar))',
-                    style: TextStyle(color: Color(0xFFA30D0D), fontSize: 23, fontFamily: 'Ubuntu', fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Color(0xFFA30D0D),
+                      fontSize: 23.sp,
+                      fontFamily: 'Ubuntu',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -479,32 +561,45 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
 
             // --- 8. AREA WORD BANK ---
             Positioned(
-              left: 26,
-              right: 26,
-              top: 350,
+              left: 26.w,
+              right: 26.w,
+              top: 350.h,
               child: Wrap(
                 alignment: WrapAlignment.center,
-                spacing: 15, 
-                runSpacing: 15, 
+                spacing: 15.w,
+                runSpacing: 15.h,
                 children: availableWords.map((word) {
                   return GestureDetector(
                     onTap: () => _onWordTapped(word),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 12.h,
+                      ),
                       decoration: BoxDecoration(
-                        color: hasCheckedAnswer ? Colors.grey.shade200 : Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFD0D0D0), width: 2),
+                        color: hasCheckedAnswer
+                            ? Colors.grey.shade200
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(12.r),
+                        border: Border.all(
+                          color: const Color(0xFFD0D0D0),
+                          width: 2,
+                        ),
                         boxShadow: [
                           if (!hasCheckedAnswer)
-                            const BoxShadow(color: Color(0xFFD0D0D0), offset: Offset(0, 3))
+                            const BoxShadow(
+                              color: Color(0xFFD0D0D0),
+                              offset: Offset(0, 3),
+                            ),
                         ],
                       ),
                       child: Text(
                         word,
                         style: TextStyle(
-                          color: hasCheckedAnswer ? Colors.grey : const Color(0xFFA30D0D),
-                          fontSize: 20,
+                          color: hasCheckedAnswer
+                              ? Colors.grey
+                              : const Color(0xFFA30D0D),
+                          fontSize: 20.sp,
                           fontFamily: 'Ubuntu',
                           fontWeight: FontWeight.bold,
                         ),
@@ -519,18 +614,20 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
             Positioned(
               left: 0,
               right: 0,
-              bottom: 110,
+              bottom: 110.h,
               child: Center(
-                child: GestureDetector( // BUNGKUS DENGAN INI
+                child: GestureDetector(
+                  // BUNGKUS DENGAN INI
                   onTap: _showHintDialog, // PANGGIL FUNGSI POPUP DI SINI
-                  child: const Text(
+                  child: Text(
                     'Need a hint ? Try our AI!',
                     style: TextStyle(
                       color: Color(0xFFA30D0D),
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontFamily: 'Ubuntu',
                       fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline, // Opsional: Tambahkan underline agar user tahu ini tombol
+                      decoration: TextDecoration
+                          .underline, // Opsional: Tambahkan underline agar user tahu ini tombol
                     ),
                   ),
                 ),
@@ -543,11 +640,15 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
               right: 0,
               bottom: 0,
               child: Container(
-                height: 91,
+                height: 91.h,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
-                    BoxShadow(color: Color(0x3F000000), blurRadius: 4, offset: Offset(0, -2))
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 4,
+                      offset: Offset(0, -2),
+                    ),
                   ],
                 ),
                 alignment: Alignment.center,
@@ -557,28 +658,34 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
                       setState(() {
                         hasCheckedAnswer = true;
                       });
-                    } 
-                    else if (hasCheckedAnswer) {
+                    } else if (hasCheckedAnswer) {
                       _showFinishBottomSheet();
                     }
                   },
                   child: Container(
-                    width: 358,
-                    height: 62,
+                    width: 358.w,
+                    height: 62.h,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
-                        colors: hasCheckedAnswer 
-                            ? [Colors.grey, Colors.grey.shade700] 
-                            : [const Color(0xFFD60000), const Color(0xFF960505)],
+                        colors: hasCheckedAnswer
+                            ? [Colors.grey, Colors.grey.shade700]
+                            : [
+                                const Color(0xFFD60000),
+                                const Color(0xFF960505),
+                              ],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
                       hasCheckedAnswer ? 'Continue' : 'Check Answer',
-                      style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -592,14 +699,14 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
 
   Widget _buildSlot(int index) {
     bool isFilled = filledSlots[index] != null;
-    
+
     Color slotColor = Colors.white;
     Color borderColor = const Color(0xFFD0D0D0);
     Color textColor = const Color(0xFFA30D0D);
 
     if (hasCheckedAnswer && isFilled) {
       bool isCorrect = filledSlots[index] == correctAnswers[index];
-      
+
       if (isCorrect) {
         slotColor = Colors.green.shade50;
         borderColor = Colors.green;
@@ -614,28 +721,30 @@ class _ScrambleCodeScreenState extends State<ScrambleCodeScreen> {
     return GestureDetector(
       onTap: () => _onSlotTapped(index),
       child: Container(
-        width: 80, 
-        height: 45,
+        width: 80.w,
+        height: 45.h,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isFilled ? slotColor : const Color(0x33A30D0D), 
-          borderRadius: BorderRadius.circular(8),
+          color: isFilled ? slotColor : const Color(0x33A30D0D),
+          borderRadius: BorderRadius.circular(8.r),
           border: isFilled ? Border.all(color: borderColor, width: 2) : null,
-          boxShadow: (isFilled && !hasCheckedAnswer) 
-              ? const [BoxShadow(color: Color(0xFFD0D0D0), offset: Offset(0, 3))] 
+          boxShadow: (isFilled && !hasCheckedAnswer)
+              ? const [
+                  BoxShadow(color: Color(0xFFD0D0D0), offset: Offset(0, 3)),
+                ]
               : null,
         ),
         child: isFilled
             ? Text(
                 filledSlots[index]!,
                 style: TextStyle(
-                  color: textColor, 
-                  fontSize: 20,
+                  color: textColor,
+                  fontSize: 20.sp,
                   fontFamily: 'Ubuntu',
                   fontWeight: FontWeight.bold,
                 ),
               )
-            : null, 
+            : null,
       ),
     );
   }

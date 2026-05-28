@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../auth/signup_screen.dart'; 
-import '../auth/login_screen.dart'; 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../auth/signup_screen.dart';
+import '../auth/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -9,19 +10,15 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity, 
-        height: double.infinity, 
+        width: double.infinity,
+        height: double.infinity,
         clipBehavior: Clip.antiAlias,
         decoration: const BoxDecoration(color: Colors.black),
         child: Stack(
           children: [
-            // Background Gradient
-            Positioned(
-              left: 0,
-              top: 0,
+            // 1. Background Gradient (Positioned.fill agar otomatis memenuhi seluruh layar)
+            Positioned.fill(
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
                 decoration: const ShapeDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.50, -0.00),
@@ -29,63 +26,78 @@ class SplashScreen extends StatelessWidget {
                     colors: [Colors.white, Color(0xFFFFEEEB)],
                   ),
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: Color(0xFFFFEEEC),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            
-            // Teks: Your AI-Powered Python Learning Companion
-            const Positioned(
-              left: 59,
-              top: 473,
-              child: SizedBox(
-                width: 294,
-                child: Text(
-                  'Your AI-Powered Python Learning\nCompanion',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF960606),
-                    fontSize: 17,
-                    fontFamily: 'Inter', 
-                    fontWeight: FontWeight.w400,
+                    side: BorderSide(width: 1, color: Color(0xFFFFEEEC)),
                   ),
                 ),
               ),
             ),
 
-            // Teks: PyWara
-            const Positioned(
-              left: 130,
-              top: 418,
+            // 2. Bagian Logo Utama (Tengah Horizontal)
+            Positioned(
+              top: 210.h,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Image.asset(
+                  'assets/images/logoutama.png',
+                  width: 169.w,
+                  height: 226.h,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
+            // 3. Teks: PyWara (Tengah Horizontal)
+            Positioned(
+              top: 418.h,
+              left: 0,
+              right: 0,
               child: Text(
                 'PyWara',
+                textAlign: TextAlign.center, // Otomatis ke tengah
                 style: TextStyle(
-                  color: Color(0xFF960606),
-                  fontSize: 40,
+                  color: const Color(0xFF960606),
+                  fontSize: 40.sp,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ),
 
-            // Tombol: Start Your Journey
+            // 4. Teks: Your AI-Powered Python Learning Companion (Tengah Horizontal)
             Positioned(
-              left: 27,
-              right: 27, 
-              top: 721,
+              top: 473.h,
+              left: 0,
+              right: 0,
+              child: Text(
+                'Your AI-Powered Python Learning\nCompanion',
+                textAlign: TextAlign.center, // Otomatis ke tengah
+                style: TextStyle(
+                  color: const Color(0xFF960606),
+                  fontSize: 17.sp,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+
+            // 5. Tombol: Start Your Journey (DIJANGKAR KE BAWAH)
+            Positioned(
+              bottom: 109
+                  .h, // Menggunakan bottom agar tidak nabrak teks di atasnya pada HP kecil
+              left: 27.w,
+              right: 27.w,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const SignUpScreen(),
+                    ),
                   );
                 },
                 child: Container(
-                  height: 62,
+                  height: 62.h,
                   decoration: ShapeDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment(0.00, 0.50),
@@ -93,15 +105,15 @@ class SplashScreen extends StatelessWidget {
                       colors: [Color(0xFFD60000), Color(0xFF960505)],
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Start Your Journey',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15.50,
+                        fontSize: 15.50.sp,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
@@ -111,20 +123,23 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
 
-            // Tombol: I Already Have an Account
+            // 6. Tombol: I Already Have an Account (DIJANGKAR KE BAWAH)
             Positioned(
-              left: 27,
-              right: 27, 
-              top: 797,
+              bottom: 33
+                  .h, // Menggunakan bottom agar selalu ada jarak pas di tepi bawah layar
+              left: 27.w,
+              right: 27.w,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
                   );
                 },
                 child: Container(
-                  height: 62,
+                  height: 62.h,
                   decoration: ShapeDecoration(
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -132,15 +147,15 @@ class SplashScreen extends StatelessWidget {
                         width: 2.50,
                         color: Color(0xFFFEE4E1),
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'I Already Have an Account',
                       style: TextStyle(
-                        color: Color(0xFF960606),
-                        fontSize: 15.50,
+                        color: const Color(0xFF960606),
+                        fontSize: 15.50.sp,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w700,
                       ),
@@ -149,18 +164,6 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Bagian Logo Utama (Sekarang sudah aman karena package telah di-import)
-            Positioned(
-              left: 121,
-              top: 210,
-              child: Image.asset(
-                'assets/images/logoutama.png', // Jalur file PNG Anda
-                width: 169,                    // Menentukan lebar langsung
-                height: 226,                   // Menentukan tinggi langsung
-                fit: BoxFit.contain,           // Menjaga proporsi gambar tetap aman
-              ),
-            ),       
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../intro/intro_screen1.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -124,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // 2. White Container (Form Area)
               Positioned(
                 left: 0,
-                top: 281,
+                top: 281.h,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height - 281,
@@ -134,10 +135,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       end: Alignment(0.50, 1.00),
                       colors: [Colors.white, Color(0xFFFFEEEC)],
                     ),
-                    shape: const RoundedRectangleBorder(
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(47),
-                        topRight: Radius.circular(47),
+                        topLeft: Radius.circular(47.r),
+                        topRight: Radius.circular(47.r),
                       ),
                     ),
                     shadows: const [
@@ -153,14 +154,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               // 3. Tab Bar (Login & Sign Up)
               Positioned(
-                left: 49,
-                right: 49,
-                top: 313,
+                left: 49.w,
+                right: 49.w,
+                top: 313.h,
                 child: Container(
-                  height: 51,
+                  height: 51.h,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE1E1E1),
-                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xFFE1E1E1),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Row(
                     children: [
@@ -175,12 +176,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             );
                           },
-                          child: const Center(
+                          child: Center(
                             child: Text(
                               "Login",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700,
+                                fontSize: 14.sp,
                               ),
                             ),
                           ),
@@ -190,15 +192,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xFF960606),
-                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xFF960606),
+                            borderRadius: BorderRadius.circular(20.r),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
                               "Sign Up",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
+                                fontSize: 14.sp
                               ),
                             ),
                           ),
@@ -212,32 +215,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Positioned(
                 left: 0,
                 right: 0,
-                top: 15, // Menurunkan sedikit agar tidak mentok ke atas layar
+                top: 1.5.h, // Menurunkan sedikit agar tidak mentok ke atas layar
                 child: Column(
                   children: [
                     // --- TEMPAT LOGO PNG ANDA ---
                     Image.asset(
                       'assets/images/logoutama.png',
-                      width: 190,   // Ukurannya diperkecil agar pas dengan area header
-                      height: 190,
+                      width: 190.w,   // Ukurannya diperkecil agar pas dengan area header
+                      height: 190.h,
                       fit: BoxFit.contain,
                     ),
                     Transform.translate(
                       offset: const Offset(0, -5), // <-- Angka -25 ini akan menarik teks ke atas sebesar 25 piksel
-                      child: const Text(
+                      child: Text(
                         'Hello!',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
                     const SizedBox(height: 0),
-                    const Text(
+                    Text(
                       "Let's explore together!",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      style: TextStyle(color: Colors.white, fontSize: 15.sp),
                     ),
                   ],
                 ),
@@ -245,21 +248,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               // 5. Input Fhields
               _buildInputField(
-                top: 415,
+                top: 415.h,
                 label: 'Email Address',
                 hint: 'your.email@gmail.com',
                 controller: _emailController,
                 icon: Icons.email_outlined, 
               ),
               _buildInputField(
-                top: 515,
+                top: 515.h,
                 label: 'Full Name',
                 hint: 'your name',
                 controller: _nameController,
                 icon: Icons.person_outline,
               ),
               _buildInputField(
-                top: 615,
+                top: 615.h,
                 label: 'Password',
                 hint: 'password',
                 isPassword: true, // Mengaktifkan mode password
@@ -269,15 +272,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               // 6. Tombol Create Account (Sign Up)
               Positioned(
-                left: 27,
-                right: 27,
-                top: 745, // Sesuaikan koordinat top agar pas di layar
+                left: 27.w,
+                right: 27.w,
+                top: 745.h, // Sesuaikan koordinat top agar pas di layar
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _signUp,
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     elevation: 3,
                   ),
@@ -286,25 +289,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       gradient: const LinearGradient(
                         colors: [Color(0xFFD60000), Color(0xFF960505)],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Container(
-                      height: 62,
+                      height: 62.h,
                       alignment: Alignment.center,
                       child: _isLoading
-                          ? const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
+                          ? SizedBox(
+                              width: 24.w,
+                              height: 24.h,
+                              child: const CircularProgressIndicator(
                                 color: Colors.white,
                                 strokeWidth: 3,
                               ),
                             )
-                          : const Text(
+                          : Text(
                               'Create Account',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -317,13 +320,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 left: 0,
                 right: 0,
                 bottom:
-                    30, // Menggunakan bottom agar adaptif saat keyboard muncul
+                    30.h, // Menggunakan bottom agar adaptif saat keyboard muncul
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Already have an account? ',
-                      style: TextStyle(color: Color(0xFF878181), fontSize: 14),
+                      style: TextStyle(color: Color(0xFF878181), fontSize: 14.sp),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -334,11 +337,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Login',
                         style: TextStyle(
                           color: Color(0xFF960606),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -363,50 +366,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool isPassword = false,
   }) {
     return Positioned(
-      left: 45,
-      right: 45,
+      left: 45.w,
+      right: 45.w,
       top: top,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 12,
+            style: TextStyle(
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Container(
-            height: 62,
+            height: 62.h,
             decoration: BoxDecoration(
               color: const Color(0xFFEAEAEA),
               border: Border.all(color: const Color(0xFFD0D0D0), width: 2),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: Center(
               child: TextField(
                 controller: controller,
                 // Menggunakan status state jika ini field password
                 obscureText: isPassword ? _obscurePassword : false,
-                style: const TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle(color: Colors.black, fontSize: 16.sp),
                 decoration: InputDecoration(
                   hintText: hint,
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: Color(0xFFA6A6A6),
-                    fontSize: 16,
+                    fontSize: 16.sp,
                   ),
                   border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 14.h,
                   ),
 
                   prefixIcon: Icon(
                     icon,
                     color: const Color.fromARGB(255, 0, 0, 0), // Warnanya disamakan dengan tema merah Anda
-                    size: 22,
+                    size: 22.sp,
                   ),
 
                   // Menambahkan ikon mata jika isPassword bernilai true
@@ -417,6 +420,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                             color: const Color.fromARGB(255, 0, 0, 0),
+                            size: 22.sp,
                           ),
                           onPressed: () {
                             setState(() {
